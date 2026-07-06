@@ -1,0 +1,4 @@
+dataset: synthetic_healthcare_risk
+task: binary_classification
+target: risk_label
+random_state: 42

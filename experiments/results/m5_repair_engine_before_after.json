@@ -1,0 +1,293 @@
+{
+  "artifacts": {
+    "automation_tradeoff_plot": "reports/figures/m5_automation_tradeoff.png",
+    "unsafe_rate_plot": "reports/figures/m5_unsafe_auto_decision_rate.png"
+  },
+  "datasets": {
+    "energy_timeseries": {
+      "dataset": "synthetic_energy_demand",
+      "repair_benchmark": {
+        "active_learning_queue_rule": "forecast contexts blocked by drift/OOD or outside conformal safety guard",
+        "active_learning_queue_size": 237,
+        "after": {
+          "accepted_forecast_mae": null,
+          "auto_decision_count": 0,
+          "auto_decision_rate": 0.0,
+          "human_review_count": 237,
+          "human_review_rate": 1.0,
+          "unsafe_auto_decision_count": 0,
+          "unsafe_auto_decision_rate": 0.0
+        },
+        "before": {
+          "accepted_forecast_mae": 3.8468,
+          "auto_decision_count": 237,
+          "auto_decision_rate": 1.0,
+          "human_review_count": 0,
+          "human_review_rate": 0.0,
+          "unsafe_auto_decision_count": 30,
+          "unsafe_auto_decision_rate": 0.1266
+        },
+        "critical_drift_or_ood": true,
+        "qhat_residual_threshold": 7.2199,
+        "repair_policy": "conformal_interval_abstention_under_drift"
+      },
+      "repair_effect_summary": {
+        "automation_rate_after": 0.0,
+        "automation_rate_before": 1.0,
+        "automation_rate_reduction": 1.0,
+        "safety_tradeoff": "reduced unsafe automation by routing more cases to review",
+        "unsafe_auto_decision_rate_after": 0.0,
+        "unsafe_auto_decision_rate_before": 0.1266,
+        "unsafe_auto_decision_rate_reduction": 0.1266
+      },
+      "repair_plan": {
+        "dataset_key": "energy_timeseries",
+        "num_repair_actions": 7,
+        "repair_actions": [
+          {
+            "description": "Do not automate cases that violate reliability guards.",
+            "execution_mode": "execute_now",
+            "name": "Abstain from auto decision",
+            "priority": 1,
+            "rationale": "Triggered by 3 active failure signal(s): F10_UNSAFE_AUTO_DECISION, F4_OUT_OF_DISTRIBUTION_INPUT, F8_WIDE_PREDICTION_INTERVAL.",
+            "repair_id": "R3_ABSTAIN_FROM_AUTO_DECISION",
+            "trigger_failures": [
+              "F10_UNSAFE_AUTO_DECISION",
+              "F4_OUT_OF_DISTRIBUTION_INPUT",
+              "F8_WIDE_PREDICTION_INTERVAL"
+            ]
+          },
+          {
+            "description": "Send risky cases to a reviewer instead of executing automatically.",
+            "execution_mode": "execute_now",
+            "name": "Route to human review",
+            "priority": 2,
+            "rationale": "Triggered by 3 active failure signal(s): F10_UNSAFE_AUTO_DECISION, F1_DATA_DRIFT, F4_OUT_OF_DISTRIBUTION_INPUT.",
+            "repair_id": "R4_ROUTE_TO_HUMAN_REVIEW",
+            "trigger_failures": [
+              "F10_UNSAFE_AUTO_DECISION",
+              "F1_DATA_DRIFT",
+              "F4_OUT_OF_DISTRIBUTION_INPUT"
+            ]
+          },
+          {
+            "description": "Escalate feature distribution changes to data quality monitoring.",
+            "execution_mode": "execute_now",
+            "name": "Flag data pipeline drift",
+            "priority": 3,
+            "rationale": "Triggered by 1 active failure signal(s): F1_DATA_DRIFT.",
+            "repair_id": "R8_FLAG_DATA_PIPELINE_DRIFT",
+            "trigger_failures": [
+              "F1_DATA_DRIFT"
+            ]
+          },
+          {
+            "description": "Use prediction sets or intervals instead of naked point predictions.",
+            "execution_mode": "apply_policy_guard",
+            "name": "Apply conformal prediction",
+            "priority": 5,
+            "rationale": "Triggered by 1 active failure signal(s): F8_WIDE_PREDICTION_INTERVAL.",
+            "repair_id": "R2_APPLY_CONFORMAL_PREDICTION",
+            "trigger_failures": [
+              "F8_WIDE_PREDICTION_INTERVAL"
+            ]
+          },
+          {
+            "description": "Create a queue of uncertain, drifted, or OOD cases for labeling.",
+            "execution_mode": "schedule_follow_up",
+            "name": "Trigger active learning",
+            "priority": 7,
+            "rationale": "Triggered by 2 active failure signal(s): F10_UNSAFE_AUTO_DECISION, F4_OUT_OF_DISTRIBUTION_INPUT.",
+            "repair_id": "R5_TRIGGER_ACTIVE_LEARNING",
+            "trigger_failures": [
+              "F10_UNSAFE_AUTO_DECISION",
+              "F4_OUT_OF_DISTRIBUTION_INPUT"
+            ]
+          },
+          {
+            "description": "Evaluate a simpler or alternate model before continuing automation.",
+            "execution_mode": "schedule_follow_up",
+            "name": "Switch to backup model",
+            "priority": 8,
+            "rationale": "Triggered by 1 active failure signal(s): F9_MODEL_DECAY_OVER_TIME.",
+            "repair_id": "R7_SWITCH_TO_BACKUP_MODEL",
+            "trigger_failures": [
+              "F9_MODEL_DECAY_OVER_TIME"
+            ]
+          },
+          {
+            "description": "Schedule a retraining benchmark once reviewed labels are available.",
+            "execution_mode": "schedule_follow_up",
+            "name": "Retrain with reviewed samples",
+            "priority": 9,
+            "rationale": "Triggered by 2 active failure signal(s): F1_DATA_DRIFT, F9_MODEL_DECAY_OVER_TIME.",
+            "repair_id": "R6_RETRAIN_WITH_REVIEWED_SAMPLES",
+            "trigger_failures": [
+              "F1_DATA_DRIFT",
+              "F9_MODEL_DECAY_OVER_TIME"
+            ]
+          }
+        ],
+        "routing_before_repair": "ESCALATE_AND_BLOCK_AUTOMATION",
+        "task": "time_series_regression",
+        "trust_score_before_repair": 0.0
+      },
+      "task": "time_series_regression"
+    },
+    "healthcare_classification": {
+      "dataset": "synthetic_healthcare_risk",
+      "repair_benchmark": {
+        "active_learning_queue_rule": "probability outside strict auto-accept bands or near decision boundary",
+        "active_learning_queue_size": 248,
+        "after": {
+          "auto_accuracy": 0.9891,
+          "auto_decision_count": 92,
+          "auto_decision_rate": 0.2706,
+          "human_review_count": 248,
+          "human_review_rate": 0.7294,
+          "unsafe_auto_decision_count": 1,
+          "unsafe_auto_decision_rate": 0.0109
+        },
+        "after_thresholds": {
+          "high": 0.9,
+          "low": 0.1
+        },
+        "before": {
+          "auto_accuracy": 0.955,
+          "auto_decision_count": 222,
+          "auto_decision_rate": 0.6529,
+          "human_review_count": 118,
+          "human_review_rate": 0.3471,
+          "unsafe_auto_decision_count": 10,
+          "unsafe_auto_decision_rate": 0.045
+        },
+        "before_thresholds": {
+          "high": 0.75,
+          "low": 0.25
+        },
+        "mean_uncertainty_distance_from_boundary": 0.2976,
+        "repair_policy": "stricter_threshold_abstention"
+      },
+      "repair_effect_summary": {
+        "automation_rate_after": 0.2706,
+        "automation_rate_before": 0.6529,
+        "automation_rate_reduction": 0.3823,
+        "safety_tradeoff": "reduced unsafe automation by routing more cases to review",
+        "unsafe_auto_decision_rate_after": 0.0109,
+        "unsafe_auto_decision_rate_before": 0.045,
+        "unsafe_auto_decision_rate_reduction": 0.0341
+      },
+      "repair_plan": {
+        "dataset_key": "healthcare_classification",
+        "num_repair_actions": 8,
+        "repair_actions": [
+          {
+            "description": "Do not automate cases that violate reliability guards.",
+            "execution_mode": "execute_now",
+            "name": "Abstain from auto decision",
+            "priority": 1,
+            "rationale": "Triggered by 2 active failure signal(s): F10_UNSAFE_AUTO_DECISION, F3_LOW_CONFIDENCE_PREDICTION.",
+            "repair_id": "R3_ABSTAIN_FROM_AUTO_DECISION",
+            "trigger_failures": [
+              "F10_UNSAFE_AUTO_DECISION",
+              "F3_LOW_CONFIDENCE_PREDICTION"
+            ]
+          },
+          {
+            "description": "Send risky cases to a reviewer instead of executing automatically.",
+            "execution_mode": "execute_now",
+            "name": "Route to human review",
+            "priority": 2,
+            "rationale": "Triggered by 3 active failure signal(s): F10_UNSAFE_AUTO_DECISION, F1_DATA_DRIFT, F3_LOW_CONFIDENCE_PREDICTION.",
+            "repair_id": "R4_ROUTE_TO_HUMAN_REVIEW",
+            "trigger_failures": [
+              "F10_UNSAFE_AUTO_DECISION",
+              "F1_DATA_DRIFT",
+              "F3_LOW_CONFIDENCE_PREDICTION"
+            ]
+          },
+          {
+            "description": "Escalate feature distribution changes to data quality monitoring.",
+            "execution_mode": "execute_now",
+            "name": "Flag data pipeline drift",
+            "priority": 3,
+            "rationale": "Triggered by 1 active failure signal(s): F1_DATA_DRIFT.",
+            "repair_id": "R8_FLAG_DATA_PIPELINE_DRIFT",
+            "trigger_failures": [
+              "F1_DATA_DRIFT"
+            ]
+          },
+          {
+            "description": "Fit or apply probability calibration before relying on predicted confidence.",
+            "execution_mode": "apply_policy_guard",
+            "name": "Recalibrate model",
+            "priority": 4,
+            "rationale": "Triggered by 1 active failure signal(s): F7_CALIBRATION_FAILURE.",
+            "repair_id": "R1_RECALIBRATE_MODEL",
+            "trigger_failures": [
+              "F7_CALIBRATION_FAILURE"
+            ]
+          },
+          {
+            "description": "Use prediction sets or intervals instead of naked point predictions.",
+            "execution_mode": "apply_policy_guard",
+            "name": "Apply conformal prediction",
+            "priority": 5,
+            "rationale": "Triggered by 1 active failure signal(s): F7_CALIBRATION_FAILURE.",
+            "repair_id": "R2_APPLY_CONFORMAL_PREDICTION",
+            "trigger_failures": [
+              "F7_CALIBRATION_FAILURE"
+            ]
+          },
+          {
+            "description": "Create a queue of uncertain, drifted, or OOD cases for labeling.",
+            "execution_mode": "schedule_follow_up",
+            "name": "Trigger active learning",
+            "priority": 7,
+            "rationale": "Triggered by 1 active failure signal(s): F10_UNSAFE_AUTO_DECISION.",
+            "repair_id": "R5_TRIGGER_ACTIVE_LEARNING",
+            "trigger_failures": [
+              "F10_UNSAFE_AUTO_DECISION"
+            ]
+          },
+          {
+            "description": "Schedule a retraining benchmark once reviewed labels are available.",
+            "execution_mode": "schedule_follow_up",
+            "name": "Retrain with reviewed samples",
+            "priority": 9,
+            "rationale": "Triggered by 1 active failure signal(s): F1_DATA_DRIFT.",
+            "repair_id": "R6_RETRAIN_WITH_REVIEWED_SAMPLES",
+            "trigger_failures": [
+              "F1_DATA_DRIFT"
+            ]
+          },
+          {
+            "description": "Defer when available evidence is insufficient for safe action.",
+            "execution_mode": "schedule_follow_up",
+            "name": "Request more features",
+            "priority": 10,
+            "rationale": "Triggered by 1 active failure signal(s): F3_LOW_CONFIDENCE_PREDICTION.",
+            "repair_id": "R10_REQUEST_MORE_FEATURES",
+            "trigger_failures": [
+              "F3_LOW_CONFIDENCE_PREDICTION"
+            ]
+          }
+        ],
+        "routing_before_repair": "ESCALATE_AND_BLOCK_AUTOMATION",
+        "task": "binary_classification",
+        "trust_score_before_repair": 17.0
+      },
+      "task": "binary_classification"
+    }
+  },
+  "honest_claim": "Repair-policy execution and before/after safety benchmarking are implemented on synthetic labeled evaluation data. No online retraining or production safety claim yet.",
+  "m5_reliability_summary": {
+    "energy_unsafe_rate_reduced": true,
+    "healthcare_unsafe_rate_reduced": true,
+    "m5_limitation": "Repair policies reduce unsafe automation mostly by abstaining and routing cases to review; online retraining is scheduled but not executed yet."
+  },
+  "milestone": "M5_REPAIR_ENGINE_AND_BEFORE_AFTER_BENCHMARK",
+  "next_milestone": "M6_RL_REPAIR_ROUTER",
+  "project": "FailSafeML-X",
+  "status": "completed"
+}

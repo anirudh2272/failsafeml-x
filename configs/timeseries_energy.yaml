@@ -1,0 +1,5 @@
+dataset: synthetic_energy_demand
+task: time_series_regression
+target: demand
+random_state: 42
+lags: [1, 2, 3, 24, 48, 168]

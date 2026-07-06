@@ -1,0 +1,400 @@
+{
+  "artifacts": {
+    "energy_drift_plot": "reports/figures/m3_energy_feature_drift.png",
+    "healthcare_drift_plot": "reports/figures/m3_healthcare_feature_drift.png"
+  },
+  "datasets": {
+    "energy_timeseries": {
+      "current_shifted_metrics": {
+        "mae": 3.8468,
+        "mape": 3.0905,
+        "r2": 0.6154,
+        "rmse": 4.7758
+      },
+      "dataset": "synthetic_energy_demand",
+      "drift_summary": {
+        "feature_drift_detected": true,
+        "num_feature_warnings": 9,
+        "ood_warning": true,
+        "prediction_drift_detected": true,
+        "risk_level": "high"
+      },
+      "feature_drift_report": {
+        "drift_detected": true,
+        "feature_details": [
+          {
+            "drift_flag": true,
+            "feature": "temperature_proxy",
+            "ks_p_value": 0.0,
+            "ks_statistic": 0.7205,
+            "psi": 11.1412
+          },
+          {
+            "drift_flag": true,
+            "feature": "rolling_mean_24",
+            "ks_p_value": 0.0,
+            "ks_statistic": 0.3364,
+            "psi": 0.927
+          },
+          {
+            "drift_flag": true,
+            "feature": "demand_lag_2",
+            "ks_p_value": 0.0,
+            "ks_statistic": 0.2602,
+            "psi": 0.3758
+          },
+          {
+            "drift_flag": true,
+            "feature": "demand_lag_24",
+            "ks_p_value": 0.0,
+            "ks_statistic": 0.2556,
+            "psi": 0.3729
+          },
+          {
+            "drift_flag": true,
+            "feature": "demand_lag_1",
+            "ks_p_value": 0.0,
+            "ks_statistic": 0.2687,
+            "psi": 0.372
+          },
+          {
+            "drift_flag": true,
+            "feature": "demand_lag_48",
+            "ks_p_value": 1e-06,
+            "ks_statistic": 0.2511,
+            "psi": 0.3718
+          },
+          {
+            "drift_flag": true,
+            "feature": "demand_lag_3",
+            "ks_p_value": 0.0,
+            "ks_statistic": 0.256,
+            "psi": 0.3639
+          },
+          {
+            "drift_flag": true,
+            "feature": "dayofweek",
+            "ks_p_value": 1e-06,
+            "ks_statistic": 0.2513,
+            "psi": 0.3088
+          },
+          {
+            "drift_flag": true,
+            "feature": "demand_lag_168",
+            "ks_p_value": 0.008694,
+            "ks_statistic": 0.1499,
+            "psi": 0.1347
+          },
+          {
+            "drift_flag": false,
+            "feature": "rolling_std_24",
+            "ks_p_value": 0.020245,
+            "ks_statistic": 0.1374,
+            "psi": 0.1679
+          },
+          {
+            "drift_flag": false,
+            "feature": "hour",
+            "ks_p_value": 1.0,
+            "ks_statistic": 0.0143,
+            "psi": 0.0026
+          }
+        ],
+        "ks_alpha": 0.01,
+        "num_features_checked": 11,
+        "num_features_drifted": 9,
+        "psi_warning_threshold": 0.2,
+        "top_drifted_features": [
+          {
+            "drift_flag": true,
+            "feature": "temperature_proxy",
+            "ks_p_value": 0.0,
+            "ks_statistic": 0.7205,
+            "psi": 11.1412
+          },
+          {
+            "drift_flag": true,
+            "feature": "rolling_mean_24",
+            "ks_p_value": 0.0,
+            "ks_statistic": 0.3364,
+            "psi": 0.927
+          },
+          {
+            "drift_flag": true,
+            "feature": "demand_lag_2",
+            "ks_p_value": 0.0,
+            "ks_statistic": 0.2602,
+            "psi": 0.3758
+          },
+          {
+            "drift_flag": true,
+            "feature": "demand_lag_24",
+            "ks_p_value": 0.0,
+            "ks_statistic": 0.2556,
+            "psi": 0.3729
+          },
+          {
+            "drift_flag": true,
+            "feature": "demand_lag_1",
+            "ks_p_value": 0.0,
+            "ks_statistic": 0.2687,
+            "psi": 0.372
+          },
+          {
+            "drift_flag": true,
+            "feature": "demand_lag_48",
+            "ks_p_value": 1e-06,
+            "ks_statistic": 0.2511,
+            "psi": 0.3718
+          },
+          {
+            "drift_flag": true,
+            "feature": "demand_lag_3",
+            "ks_p_value": 0.0,
+            "ks_statistic": 0.256,
+            "psi": 0.3639
+          },
+          {
+            "drift_flag": true,
+            "feature": "dayofweek",
+            "ks_p_value": 1e-06,
+            "ks_statistic": 0.2513,
+            "psi": 0.3088
+          }
+        ]
+      },
+      "model": "gradient_boosting_regressor",
+      "num_current_shifted": 237,
+      "num_reference": 236,
+      "num_train": 709,
+      "ood_report": {
+        "current_mean_score": 54.4886,
+        "current_median_score": 55.8788,
+        "mahalanobis_threshold": 19.0555,
+        "max_score": 108.6632,
+        "ood_rate": 0.9916,
+        "ood_rate_warning_threshold": 0.15,
+        "ood_warning": true,
+        "reference_mean_score": 11.0,
+        "threshold_quantile": 0.95
+      },
+      "prediction_drift_report": {
+        "ks_alpha": 0.01,
+        "ks_p_value": 0.192849,
+        "ks_statistic": 0.098,
+        "prediction_drift_detected": true,
+        "psi": 0.1577,
+        "psi_warning_threshold": 0.1
+      },
+      "reference_metrics": {
+        "mae": 2.7868,
+        "mape": 2.1411,
+        "r2": 0.7468,
+        "rmse": 3.4965
+      },
+      "task": "time_series_regression"
+    },
+    "healthcare_classification": {
+      "current_shifted_metrics": {
+        "accuracy": 0.8765,
+        "auroc": 0.9288,
+        "brier_score": 0.0982,
+        "expected_calibration_error": 0.0894,
+        "f1": 0.79
+      },
+      "dataset": "synthetic_healthcare_risk",
+      "drift_summary": {
+        "feature_drift_detected": true,
+        "num_feature_warnings": 5,
+        "ood_warning": false,
+        "prediction_drift_detected": false,
+        "risk_level": "medium"
+      },
+      "feature_drift_report": {
+        "drift_detected": true,
+        "feature_details": [
+          {
+            "drift_flag": true,
+            "feature": "age_like",
+            "ks_p_value": 0.0,
+            "ks_statistic": 0.4559,
+            "psi": 1.2952
+          },
+          {
+            "drift_flag": true,
+            "feature": "bp_like",
+            "ks_p_value": 0.0,
+            "ks_statistic": 0.3588,
+            "psi": 0.8068
+          },
+          {
+            "drift_flag": true,
+            "feature": "activity_score",
+            "ks_p_value": 0.0,
+            "ks_statistic": 0.2471,
+            "psi": 0.3523
+          },
+          {
+            "drift_flag": true,
+            "feature": "glucose_like",
+            "ks_p_value": 0.0,
+            "ks_statistic": 0.2265,
+            "psi": 0.3114
+          },
+          {
+            "drift_flag": true,
+            "feature": "lab_marker_1",
+            "ks_p_value": 9.8e-05,
+            "ks_statistic": 0.1706,
+            "psi": 0.1428
+          },
+          {
+            "drift_flag": false,
+            "feature": "medication_count",
+            "ks_p_value": 0.168584,
+            "ks_statistic": 0.0853,
+            "psi": 0.0889
+          },
+          {
+            "drift_flag": false,
+            "feature": "prior_visit_count",
+            "ks_p_value": 0.728165,
+            "ks_statistic": 0.0529,
+            "psi": 0.0786
+          },
+          {
+            "drift_flag": false,
+            "feature": "lab_marker_3",
+            "ks_p_value": 0.599415,
+            "ks_statistic": 0.0588,
+            "psi": 0.0776
+          },
+          {
+            "drift_flag": false,
+            "feature": "bmi_like",
+            "ks_p_value": 0.728165,
+            "ks_statistic": 0.0529,
+            "psi": 0.076
+          },
+          {
+            "drift_flag": false,
+            "feature": "family_history_proxy",
+            "ks_p_value": 0.36567,
+            "ks_statistic": 0.0706,
+            "psi": 0.0628
+          },
+          {
+            "drift_flag": false,
+            "feature": "smoking_proxy",
+            "ks_p_value": 0.054428,
+            "ks_statistic": 0.1029,
+            "psi": 0.0503
+          },
+          {
+            "drift_flag": false,
+            "feature": "cholesterol_like",
+            "ks_p_value": 0.789827,
+            "ks_statistic": 0.05,
+            "psi": 0.0455
+          },
+          {
+            "drift_flag": false,
+            "feature": "sleep_score",
+            "ks_p_value": 0.418548,
+            "ks_statistic": 0.0676,
+            "psi": 0.0445
+          },
+          {
+            "drift_flag": false,
+            "feature": "lab_marker_2",
+            "ks_p_value": 0.536176,
+            "ks_statistic": 0.0618,
+            "psi": 0.0433
+          }
+        ],
+        "ks_alpha": 0.01,
+        "num_features_checked": 14,
+        "num_features_drifted": 5,
+        "psi_warning_threshold": 0.2,
+        "top_drifted_features": [
+          {
+            "drift_flag": true,
+            "feature": "age_like",
+            "ks_p_value": 0.0,
+            "ks_statistic": 0.4559,
+            "psi": 1.2952
+          },
+          {
+            "drift_flag": true,
+            "feature": "bp_like",
+            "ks_p_value": 0.0,
+            "ks_statistic": 0.3588,
+            "psi": 0.8068
+          },
+          {
+            "drift_flag": true,
+            "feature": "activity_score",
+            "ks_p_value": 0.0,
+            "ks_statistic": 0.2471,
+            "psi": 0.3523
+          },
+          {
+            "drift_flag": true,
+            "feature": "glucose_like",
+            "ks_p_value": 0.0,
+            "ks_statistic": 0.2265,
+            "psi": 0.3114
+          },
+          {
+            "drift_flag": true,
+            "feature": "lab_marker_1",
+            "ks_p_value": 9.8e-05,
+            "ks_statistic": 0.1706,
+            "psi": 0.1428
+          }
+        ]
+      },
+      "model": "random_forest",
+      "num_current_shifted": 340,
+      "num_reference": 340,
+      "num_train": 1020,
+      "ood_report": {
+        "current_mean_score": 13.8617,
+        "current_median_score": 12.7603,
+        "mahalanobis_threshold": 21.2338,
+        "max_score": 49.3263,
+        "ood_rate": 0.1118,
+        "ood_rate_warning_threshold": 0.15,
+        "ood_warning": false,
+        "reference_mean_score": 11.0,
+        "threshold_quantile": 0.95
+      },
+      "prediction_drift_report": {
+        "ks_alpha": 0.01,
+        "ks_p_value": 0.168584,
+        "ks_statistic": 0.0853,
+        "prediction_drift_detected": false,
+        "psi": 0.0758,
+        "psi_warning_threshold": 0.1
+      },
+      "reference_metrics": {
+        "accuracy": 0.8941,
+        "auroc": 0.9462,
+        "brier_score": 0.0806,
+        "expected_calibration_error": 0.1003,
+        "f1": 0.8286
+      },
+      "task": "binary_classification"
+    }
+  },
+  "honest_claim": "Drift and out-of-distribution detection are implemented. No automated repair policy or self-healing claim yet.",
+  "m3_reliability_summary": {
+    "energy_risk_level": "high",
+    "healthcare_risk_level": "medium",
+    "m3_limitation": "Drift/OOD signals are measured, but repairs are not yet triggered."
+  },
+  "milestone": "M3_DRIFT_AND_OOD_DETECTION",
+  "next_milestone": "M4_FAILURE_TAXONOMY_AND_TRUST_SCORE",
+  "project": "FailSafeML-X",
+  "status": "completed"
+}

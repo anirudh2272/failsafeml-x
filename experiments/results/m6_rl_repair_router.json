@@ -1,0 +1,70 @@
+{
+  "artifacts": {
+    "router_action_mix_plot": "reports/figures/m6_router_action_mix.png",
+    "router_reward_comparison_plot": "reports/figures/m6_router_reward_comparison.png"
+  },
+  "environment": {
+    "action_space": [
+      "AUTO_ACCEPT",
+      "ABSTAIN",
+      "HUMAN_REVIEW",
+      "ACTIVE_LEARNING",
+      "RETRAIN_EVAL"
+    ],
+    "environment_type": "synthetic_reliability_routing_simulator",
+    "num_evaluation_states": 600,
+    "num_training_states": 1250,
+    "state_representation": "trust_score_bin, uncertainty_bin, drift_flag, ood_flag, failure_count_bin"
+  },
+  "honest_claim": "A cost-sensitive tabular Q-learning repair router is implemented and benchmarked against a rule baseline in a synthetic reliability-routing simulator. No production RL deployment claim yet.",
+  "m6_reliability_summary": {
+    "m6_limitation": "The router is trained in a synthetic one-step simulator; real incident replay data is needed before claiming deployment validity.",
+    "rl_reward_not_worse_than_rule": true
+  },
+  "milestone": "M6_RL_REPAIR_ROUTER",
+  "next_milestone": "M7_API_DASHBOARD_AND_DEMO",
+  "project": "FailSafeML-X",
+  "q_learning_config": {
+    "episodes": 9000,
+    "epsilon": 0.22,
+    "learned_q_states": 287,
+    "learning_rate": 0.18
+  },
+  "router_evaluation": {
+    "comparison": {
+      "automation_rate_delta_rl_minus_rule": 0.2133,
+      "reward_delta_rl_minus_rule": 0.3329,
+      "rl_reward_not_worse_than_rule": true,
+      "unsafe_auto_rate_delta_rl_minus_rule": 0.0798
+    },
+    "q_learning_router": {
+      "action_counts": {
+        "ABSTAIN": 3,
+        "ACTIVE_LEARNING": 9,
+        "AUTO_ACCEPT": 150,
+        "HUMAN_REVIEW": 364,
+        "RETRAIN_EVAL": 74
+      },
+      "automation_rate": 0.25,
+      "expected_reward": 0.1321,
+      "expected_unsafe_auto_decision_rate": 0.1477,
+      "num_states": 600,
+      "review_or_defer_rate": 0.75
+    },
+    "rule_based_router": {
+      "action_counts": {
+        "ABSTAIN": 0,
+        "ACTIVE_LEARNING": 25,
+        "AUTO_ACCEPT": 22,
+        "HUMAN_REVIEW": 538,
+        "RETRAIN_EVAL": 15
+      },
+      "automation_rate": 0.0367,
+      "expected_reward": -0.2008,
+      "expected_unsafe_auto_decision_rate": 0.0679,
+      "num_states": 600,
+      "review_or_defer_rate": 0.9633
+    }
+  },
+  "status": "completed"
+}

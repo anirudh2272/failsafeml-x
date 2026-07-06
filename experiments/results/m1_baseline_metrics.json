@@ -1,0 +1,72 @@
+{
+  "datasets": {
+    "energy_timeseries": {
+      "best_model": "gradient_boosting_regressor",
+      "candidate_models": {
+        "gradient_boosting_regressor": {
+          "mae": 3.9615,
+          "mape": 2.913,
+          "r2": 0.6289,
+          "rmse": 4.9204
+        }
+      },
+      "dataset": "synthetic_energy_demand",
+      "metrics": {
+        "mae": 3.9615,
+        "mape": 2.913,
+        "r2": 0.6289,
+        "rmse": 4.9204
+      },
+      "num_test": 228,
+      "num_train": 804,
+      "task": "time_series_regression"
+    },
+    "healthcare_classification": {
+      "best_model": "random_forest",
+      "candidate_models": {
+        "gradient_boosting": {
+          "accuracy": 0.8853,
+          "auroc": 0.947,
+          "brier_score": 0.0812,
+          "expected_calibration_error": 0.0505,
+          "f1": 0.8139
+        },
+        "logistic_regression": {
+          "accuracy": 0.8187,
+          "auroc": 0.8537,
+          "brier_score": 0.1446,
+          "expected_calibration_error": 0.1149,
+          "f1": 0.7385
+        },
+        "random_forest": {
+          "accuracy": 0.9067,
+          "auroc": 0.9592,
+          "brier_score": 0.0808,
+          "expected_calibration_error": 0.1029,
+          "f1": 0.8583
+        }
+      },
+      "dataset": "synthetic_healthcare_risk",
+      "metrics": {
+        "accuracy": 0.9067,
+        "auroc": 0.9592,
+        "brier_score": 0.0808,
+        "expected_calibration_error": 0.1029,
+        "f1": 0.8583
+      },
+      "num_test": 375,
+      "num_train": 1125,
+      "task": "binary_classification"
+    }
+  },
+  "honest_claim": "Baseline multi-domain reliability benchmark is implemented. No self-healing or novelty claim yet.",
+  "initial_reliability_summary": {
+    "classification_calibration_warning": true,
+    "m1_limitation": "No repair policy yet. Milestone 1 only establishes baseline reliability metrics.",
+    "regression_error_warning": false
+  },
+  "milestone": "M1_BASELINE_RELIABILITY",
+  "next_milestone": "M2_UNCERTAINTY_AND_CALIBRATION_ENGINE",
+  "project": "FailSafeML-X",
+  "status": "completed"
+}

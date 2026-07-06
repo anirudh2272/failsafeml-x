@@ -1,0 +1,690 @@
+{
+  "api_contract": {
+    "GET /health": "Liveness and project metadata.",
+    "POST /reliability/batch": "Return summary statistics for a batch of prediction reliability requests.",
+    "POST /reliability/score": "Return trust score, failures, repair plan, and router action for one prediction."
+  },
+  "artifacts": {
+    "api_action_summary_plot": "reports/figures/m7_api_router_action_summary.png",
+    "api_dashboard_results": "experiments/results/m7_api_dashboard_demo.json",
+    "fastapi_app": "src/failsafemlx/serving/fastapi_app.py",
+    "streamlit_dashboard": "apps/streamlit_dashboard.py"
+  },
+  "honest_claim": "A local API/dashboard demo layer is implemented for reliability scoring, failure explanation, repair planning, and routing inspection. No production deployment claim yet.",
+  "m7_reliability_summary": {
+    "api_contract_defined": true,
+    "dashboard_artifact_defined": true,
+    "demo_batch_scored": true,
+    "m7_limitation": "Local serving demo only; authentication, persistence, and production deployment are not included yet."
+  },
+  "milestone": "M7_API_DASHBOARD_AND_DEMO",
+  "next_milestone": "M8_DOCKER_FINAL_DOCUMENTATION_AND_DEMO",
+  "project": "FailSafeML-X",
+  "sample_responses": [
+    {
+      "api_contract_version": "m7.v1",
+      "domain": "healthcare_risk",
+      "prediction": {
+        "predicted_label": 1,
+        "probability": 0.54
+      },
+      "repair_plan": {
+        "dataset_key": null,
+        "num_repair_actions": 3,
+        "repair_actions": [
+          {
+            "description": "Do not automate cases that violate reliability guards.",
+            "execution_mode": "execute_now",
+            "name": "Abstain from auto decision",
+            "priority": 1,
+            "rationale": "Triggered by 1 active failure signal(s): F3_LOW_CONFIDENCE_PREDICTION.",
+            "repair_id": "R3_ABSTAIN_FROM_AUTO_DECISION",
+            "trigger_failures": [
+              "F3_LOW_CONFIDENCE_PREDICTION"
+            ]
+          },
+          {
+            "description": "Send risky cases to a reviewer instead of executing automatically.",
+            "execution_mode": "execute_now",
+            "name": "Route to human review",
+            "priority": 2,
+            "rationale": "Triggered by 1 active failure signal(s): F3_LOW_CONFIDENCE_PREDICTION.",
+            "repair_id": "R4_ROUTE_TO_HUMAN_REVIEW",
+            "trigger_failures": [
+              "F3_LOW_CONFIDENCE_PREDICTION"
+            ]
+          },
+          {
+            "description": "Defer when available evidence is insufficient for safe action.",
+            "execution_mode": "schedule_follow_up",
+            "name": "Request more features",
+            "priority": 10,
+            "rationale": "Triggered by 1 active failure signal(s): F3_LOW_CONFIDENCE_PREDICTION.",
+            "repair_id": "R10_REQUEST_MORE_FEATURES",
+            "trigger_failures": [
+              "F3_LOW_CONFIDENCE_PREDICTION"
+            ]
+          }
+        ],
+        "routing_before_repair": null,
+        "task": null,
+        "trust_score_before_repair": null
+      },
+      "request_id": "demo-0000",
+      "router": {
+        "action": "ACTIVE_LEARNING",
+        "auto_accept": false,
+        "router_type": "rule_based_serving_router",
+        "state": {
+          "drift_flag": false,
+          "failure_count": 1,
+          "ood_flag": false,
+          "trust_score": 85.0,
+          "uncertainty": 0.92,
+          "unsafe_probability": 0.442
+        }
+      },
+      "trust": {
+        "failure_signals": [
+          {
+            "description": "A meaningful fraction of decisions are made with weak model confidence.",
+            "evidence": "Probability=0.54 gives uncertainty=0.92.",
+            "failure_id": "F3_LOW_CONFIDENCE_PREDICTION",
+            "name": "Low-confidence prediction",
+            "penalty": 15,
+            "recommended_action": "Use abstention or human review for low-margin decisions.",
+            "severity": "medium"
+          }
+        ],
+        "num_failures": 1,
+        "request_id": "demo-0000",
+        "risk_level": "low",
+        "routing_decision": "AUTO_ACCEPT",
+        "total_penalty": 15,
+        "trust_score": 85.0
+      }
+    },
+    {
+      "api_contract_version": "m7.v1",
+      "domain": "energy_forecast",
+      "prediction": {
+        "predicted_label": 1,
+        "probability": 0.8621
+      },
+      "repair_plan": {
+        "dataset_key": null,
+        "num_repair_actions": 0,
+        "repair_actions": [],
+        "routing_before_repair": null,
+        "task": null,
+        "trust_score_before_repair": null
+      },
+      "request_id": "demo-0001",
+      "router": {
+        "action": "AUTO_ACCEPT",
+        "auto_accept": true,
+        "router_type": "rule_based_serving_router",
+        "state": {
+          "drift_flag": false,
+          "failure_count": 0,
+          "ood_flag": false,
+          "trust_score": 100.0,
+          "uncertainty": 0.2758,
+          "unsafe_probability": 0.1265
+        }
+      },
+      "trust": {
+        "failure_signals": [],
+        "num_failures": 0,
+        "request_id": "demo-0001",
+        "risk_level": "low",
+        "routing_decision": "AUTO_ACCEPT",
+        "total_penalty": 0,
+        "trust_score": 100.0
+      }
+    },
+    {
+      "api_contract_version": "m7.v1",
+      "domain": "healthcare_risk",
+      "prediction": {
+        "predicted_label": 1,
+        "probability": 0.8415
+      },
+      "repair_plan": {
+        "dataset_key": null,
+        "num_repair_actions": 0,
+        "repair_actions": [],
+        "routing_before_repair": null,
+        "task": null,
+        "trust_score_before_repair": null
+      },
+      "request_id": "demo-0002",
+      "router": {
+        "action": "AUTO_ACCEPT",
+        "auto_accept": true,
+        "router_type": "rule_based_serving_router",
+        "state": {
+          "drift_flag": false,
+          "failure_count": 0,
+          "ood_flag": false,
+          "trust_score": 100.0,
+          "uncertainty": 0.317,
+          "unsafe_probability": 0.1409
+        }
+      },
+      "trust": {
+        "failure_signals": [],
+        "num_failures": 0,
+        "request_id": "demo-0002",
+        "risk_level": "low",
+        "routing_decision": "AUTO_ACCEPT",
+        "total_penalty": 0,
+        "trust_score": 100.0
+      }
+    },
+    {
+      "api_contract_version": "m7.v1",
+      "domain": "energy_forecast",
+      "prediction": {
+        "predicted_label": 0,
+        "probability": 0.0331
+      },
+      "repair_plan": {
+        "dataset_key": null,
+        "num_repair_actions": 0,
+        "repair_actions": [],
+        "routing_before_repair": null,
+        "task": null,
+        "trust_score_before_repair": null
+      },
+      "request_id": "demo-0003",
+      "router": {
+        "action": "AUTO_ACCEPT",
+        "auto_accept": true,
+        "router_type": "rule_based_serving_router",
+        "state": {
+          "drift_flag": false,
+          "failure_count": 0,
+          "ood_flag": false,
+          "trust_score": 100.0,
+          "uncertainty": 0.0662,
+          "unsafe_probability": 0.0532
+        }
+      },
+      "trust": {
+        "failure_signals": [],
+        "num_failures": 0,
+        "request_id": "demo-0003",
+        "risk_level": "low",
+        "routing_decision": "AUTO_ACCEPT",
+        "total_penalty": 0,
+        "trust_score": 100.0
+      }
+    },
+    {
+      "api_contract_version": "m7.v1",
+      "domain": "healthcare_risk",
+      "prediction": {
+        "predicted_label": 1,
+        "probability": 0.7974
+      },
+      "repair_plan": {
+        "dataset_key": null,
+        "num_repair_actions": 0,
+        "repair_actions": [],
+        "routing_before_repair": null,
+        "task": null,
+        "trust_score_before_repair": null
+      },
+      "request_id": "demo-0004",
+      "router": {
+        "action": "HUMAN_REVIEW",
+        "auto_accept": false,
+        "router_type": "rule_based_serving_router",
+        "state": {
+          "drift_flag": false,
+          "failure_count": 0,
+          "ood_flag": false,
+          "trust_score": 100.0,
+          "uncertainty": 0.4052,
+          "unsafe_probability": 0.1718
+        }
+      },
+      "trust": {
+        "failure_signals": [],
+        "num_failures": 0,
+        "request_id": "demo-0004",
+        "risk_level": "low",
+        "routing_decision": "AUTO_ACCEPT",
+        "total_penalty": 0,
+        "trust_score": 100.0
+      }
+    },
+    {
+      "api_contract_version": "m7.v1",
+      "domain": "energy_forecast",
+      "prediction": {
+        "predicted_label": 0,
+        "probability": 0.4058
+      },
+      "repair_plan": {
+        "dataset_key": null,
+        "num_repair_actions": 4,
+        "repair_actions": [
+          {
+            "description": "Do not automate cases that violate reliability guards.",
+            "execution_mode": "execute_now",
+            "name": "Abstain from auto decision",
+            "priority": 1,
+            "rationale": "Triggered by 2 active failure signal(s): F3_LOW_CONFIDENCE_PREDICTION, F8_WIDE_PREDICTION_INTERVAL.",
+            "repair_id": "R3_ABSTAIN_FROM_AUTO_DECISION",
+            "trigger_failures": [
+              "F3_LOW_CONFIDENCE_PREDICTION",
+              "F8_WIDE_PREDICTION_INTERVAL"
+            ]
+          },
+          {
+            "description": "Send risky cases to a reviewer instead of executing automatically.",
+            "execution_mode": "execute_now",
+            "name": "Route to human review",
+            "priority": 2,
+            "rationale": "Triggered by 1 active failure signal(s): F3_LOW_CONFIDENCE_PREDICTION.",
+            "repair_id": "R4_ROUTE_TO_HUMAN_REVIEW",
+            "trigger_failures": [
+              "F3_LOW_CONFIDENCE_PREDICTION"
+            ]
+          },
+          {
+            "description": "Use prediction sets or intervals instead of naked point predictions.",
+            "execution_mode": "apply_policy_guard",
+            "name": "Apply conformal prediction",
+            "priority": 5,
+            "rationale": "Triggered by 1 active failure signal(s): F8_WIDE_PREDICTION_INTERVAL.",
+            "repair_id": "R2_APPLY_CONFORMAL_PREDICTION",
+            "trigger_failures": [
+              "F8_WIDE_PREDICTION_INTERVAL"
+            ]
+          },
+          {
+            "description": "Defer when available evidence is insufficient for safe action.",
+            "execution_mode": "schedule_follow_up",
+            "name": "Request more features",
+            "priority": 10,
+            "rationale": "Triggered by 1 active failure signal(s): F3_LOW_CONFIDENCE_PREDICTION.",
+            "repair_id": "R10_REQUEST_MORE_FEATURES",
+            "trigger_failures": [
+              "F3_LOW_CONFIDENCE_PREDICTION"
+            ]
+          }
+        ],
+        "routing_before_repair": null,
+        "task": null,
+        "trust_score_before_repair": null
+      },
+      "request_id": "demo-0005",
+      "router": {
+        "action": "ACTIVE_LEARNING",
+        "auto_accept": false,
+        "router_type": "rule_based_serving_router",
+        "state": {
+          "drift_flag": false,
+          "failure_count": 2,
+          "ood_flag": false,
+          "trust_score": 70.0,
+          "uncertainty": 0.8116,
+          "unsafe_probability": 0.4941
+        }
+      },
+      "trust": {
+        "failure_signals": [
+          {
+            "description": "A meaningful fraction of decisions are made with weak model confidence.",
+            "evidence": "Probability=0.4058 gives uncertainty=0.8116.",
+            "failure_id": "F3_LOW_CONFIDENCE_PREDICTION",
+            "name": "Low-confidence prediction",
+            "penalty": 15,
+            "recommended_action": "Use abstention or human review for low-margin decisions.",
+            "severity": "medium"
+          },
+          {
+            "description": "Conformal intervals or sets indicate high uncertainty around the model output.",
+            "evidence": "Conformal set/interval size=1.2724.",
+            "failure_id": "F8_WIDE_PREDICTION_INTERVAL",
+            "name": "Wide prediction interval",
+            "penalty": 15,
+            "recommended_action": "Expose uncertainty interval/set and avoid point-only automation.",
+            "severity": "medium"
+          }
+        ],
+        "num_failures": 2,
+        "request_id": "demo-0005",
+        "risk_level": "medium",
+        "routing_decision": "HUMAN_REVIEW",
+        "total_penalty": 30,
+        "trust_score": 70.0
+      }
+    },
+    {
+      "api_contract_version": "m7.v1",
+      "domain": "healthcare_risk",
+      "prediction": {
+        "predicted_label": 1,
+        "probability": 0.9654
+      },
+      "repair_plan": {
+        "dataset_key": null,
+        "num_repair_actions": 0,
+        "repair_actions": [],
+        "routing_before_repair": null,
+        "task": null,
+        "trust_score_before_repair": null
+      },
+      "request_id": "demo-0006",
+      "router": {
+        "action": "AUTO_ACCEPT",
+        "auto_accept": true,
+        "router_type": "rule_based_serving_router",
+        "state": {
+          "drift_flag": false,
+          "failure_count": 0,
+          "ood_flag": false,
+          "trust_score": 100.0,
+          "uncertainty": 0.0692,
+          "unsafe_probability": 0.0542
+        }
+      },
+      "trust": {
+        "failure_signals": [],
+        "num_failures": 0,
+        "request_id": "demo-0006",
+        "risk_level": "low",
+        "routing_decision": "AUTO_ACCEPT",
+        "total_penalty": 0,
+        "trust_score": 100.0
+      }
+    },
+    {
+      "api_contract_version": "m7.v1",
+      "domain": "energy_forecast",
+      "prediction": {
+        "predicted_label": 0,
+        "probability": 0.1655
+      },
+      "repair_plan": {
+        "dataset_key": null,
+        "num_repair_actions": 0,
+        "repair_actions": [],
+        "routing_before_repair": null,
+        "task": null,
+        "trust_score_before_repair": null
+      },
+      "request_id": "demo-0007",
+      "router": {
+        "action": "HUMAN_REVIEW",
+        "auto_accept": false,
+        "router_type": "rule_based_serving_router",
+        "state": {
+          "drift_flag": false,
+          "failure_count": 0,
+          "ood_flag": false,
+          "trust_score": 100.0,
+          "uncertainty": 0.331,
+          "unsafe_probability": 0.1458
+        }
+      },
+      "trust": {
+        "failure_signals": [],
+        "num_failures": 0,
+        "request_id": "demo-0007",
+        "risk_level": "low",
+        "routing_decision": "AUTO_ACCEPT",
+        "total_penalty": 0,
+        "trust_score": 100.0
+      }
+    },
+    {
+      "api_contract_version": "m7.v1",
+      "domain": "healthcare_risk",
+      "prediction": {
+        "predicted_label": 1,
+        "probability": 0.8907
+      },
+      "repair_plan": {
+        "dataset_key": null,
+        "num_repair_actions": 0,
+        "repair_actions": [],
+        "routing_before_repair": null,
+        "task": null,
+        "trust_score_before_repair": null
+      },
+      "request_id": "demo-0008",
+      "router": {
+        "action": "AUTO_ACCEPT",
+        "auto_accept": true,
+        "router_type": "rule_based_serving_router",
+        "state": {
+          "drift_flag": false,
+          "failure_count": 0,
+          "ood_flag": false,
+          "trust_score": 100.0,
+          "uncertainty": 0.2186,
+          "unsafe_probability": 0.1065
+        }
+      },
+      "trust": {
+        "failure_signals": [],
+        "num_failures": 0,
+        "request_id": "demo-0008",
+        "risk_level": "low",
+        "routing_decision": "AUTO_ACCEPT",
+        "total_penalty": 0,
+        "trust_score": 100.0
+      }
+    },
+    {
+      "api_contract_version": "m7.v1",
+      "domain": "energy_forecast",
+      "prediction": {
+        "predicted_label": 0,
+        "probability": 0.169
+      },
+      "repair_plan": {
+        "dataset_key": null,
+        "num_repair_actions": 0,
+        "repair_actions": [],
+        "routing_before_repair": null,
+        "task": null,
+        "trust_score_before_repair": null
+      },
+      "request_id": "demo-0009",
+      "router": {
+        "action": "HUMAN_REVIEW",
+        "auto_accept": false,
+        "router_type": "rule_based_serving_router",
+        "state": {
+          "drift_flag": false,
+          "failure_count": 0,
+          "ood_flag": false,
+          "trust_score": 100.0,
+          "uncertainty": 0.338,
+          "unsafe_probability": 0.1483
+        }
+      },
+      "trust": {
+        "failure_signals": [],
+        "num_failures": 0,
+        "request_id": "demo-0009",
+        "risk_level": "low",
+        "routing_decision": "AUTO_ACCEPT",
+        "total_penalty": 0,
+        "trust_score": 100.0
+      }
+    },
+    {
+      "api_contract_version": "m7.v1",
+      "domain": "healthcare_risk",
+      "prediction": {
+        "predicted_label": 0,
+        "probability": 0.0306
+      },
+      "repair_plan": {
+        "dataset_key": null,
+        "num_repair_actions": 0,
+        "repair_actions": [],
+        "routing_before_repair": null,
+        "task": null,
+        "trust_score_before_repair": null
+      },
+      "request_id": "demo-0010",
+      "router": {
+        "action": "AUTO_ACCEPT",
+        "auto_accept": true,
+        "router_type": "rule_based_serving_router",
+        "state": {
+          "drift_flag": false,
+          "failure_count": 0,
+          "ood_flag": false,
+          "trust_score": 100.0,
+          "uncertainty": 0.0612,
+          "unsafe_probability": 0.0514
+        }
+      },
+      "trust": {
+        "failure_signals": [],
+        "num_failures": 0,
+        "request_id": "demo-0010",
+        "risk_level": "low",
+        "routing_decision": "AUTO_ACCEPT",
+        "total_penalty": 0,
+        "trust_score": 100.0
+      }
+    },
+    {
+      "api_contract_version": "m7.v1",
+      "domain": "energy_forecast",
+      "prediction": {
+        "predicted_label": 1,
+        "probability": 0.5388
+      },
+      "repair_plan": {
+        "dataset_key": null,
+        "num_repair_actions": 4,
+        "repair_actions": [
+          {
+            "description": "Do not automate cases that violate reliability guards.",
+            "execution_mode": "execute_now",
+            "name": "Abstain from auto decision",
+            "priority": 1,
+            "rationale": "Triggered by 2 active failure signal(s): F3_LOW_CONFIDENCE_PREDICTION, F8_WIDE_PREDICTION_INTERVAL.",
+            "repair_id": "R3_ABSTAIN_FROM_AUTO_DECISION",
+            "trigger_failures": [
+              "F3_LOW_CONFIDENCE_PREDICTION",
+              "F8_WIDE_PREDICTION_INTERVAL"
+            ]
+          },
+          {
+            "description": "Send risky cases to a reviewer instead of executing automatically.",
+            "execution_mode": "execute_now",
+            "name": "Route to human review",
+            "priority": 2,
+            "rationale": "Triggered by 1 active failure signal(s): F3_LOW_CONFIDENCE_PREDICTION.",
+            "repair_id": "R4_ROUTE_TO_HUMAN_REVIEW",
+            "trigger_failures": [
+              "F3_LOW_CONFIDENCE_PREDICTION"
+            ]
+          },
+          {
+            "description": "Use prediction sets or intervals instead of naked point predictions.",
+            "execution_mode": "apply_policy_guard",
+            "name": "Apply conformal prediction",
+            "priority": 5,
+            "rationale": "Triggered by 1 active failure signal(s): F8_WIDE_PREDICTION_INTERVAL.",
+            "repair_id": "R2_APPLY_CONFORMAL_PREDICTION",
+            "trigger_failures": [
+              "F8_WIDE_PREDICTION_INTERVAL"
+            ]
+          },
+          {
+            "description": "Defer when available evidence is insufficient for safe action.",
+            "execution_mode": "schedule_follow_up",
+            "name": "Request more features",
+            "priority": 10,
+            "rationale": "Triggered by 1 active failure signal(s): F3_LOW_CONFIDENCE_PREDICTION.",
+            "repair_id": "R10_REQUEST_MORE_FEATURES",
+            "trigger_failures": [
+              "F3_LOW_CONFIDENCE_PREDICTION"
+            ]
+          }
+        ],
+        "routing_before_repair": null,
+        "task": null,
+        "trust_score_before_repair": null
+      },
+      "request_id": "demo-0011",
+      "router": {
+        "action": "ACTIVE_LEARNING",
+        "auto_accept": false,
+        "router_type": "rule_based_serving_router",
+        "state": {
+          "drift_flag": false,
+          "failure_count": 2,
+          "ood_flag": false,
+          "trust_score": 70.0,
+          "uncertainty": 0.9224,
+          "unsafe_probability": 0.5328
+        }
+      },
+      "trust": {
+        "failure_signals": [
+          {
+            "description": "A meaningful fraction of decisions are made with weak model confidence.",
+            "evidence": "Probability=0.5388 gives uncertainty=0.9224.",
+            "failure_id": "F3_LOW_CONFIDENCE_PREDICTION",
+            "name": "Low-confidence prediction",
+            "penalty": 15,
+            "recommended_action": "Use abstention or human review for low-margin decisions.",
+            "severity": "medium"
+          },
+          {
+            "description": "Conformal intervals or sets indicate high uncertainty around the model output.",
+            "evidence": "Conformal set/interval size=1.3459.",
+            "failure_id": "F8_WIDE_PREDICTION_INTERVAL",
+            "name": "Wide prediction interval",
+            "penalty": 15,
+            "recommended_action": "Expose uncertainty interval/set and avoid point-only automation.",
+            "severity": "medium"
+          }
+        ],
+        "num_failures": 2,
+        "request_id": "demo-0011",
+        "risk_level": "medium",
+        "routing_decision": "HUMAN_REVIEW",
+        "total_penalty": 30,
+        "trust_score": 70.0
+      }
+    }
+  ],
+  "serving_demo_summary": {
+    "auto_accept_rate": 0.4222,
+    "max_trust_score": 100.0,
+    "mean_trust_score": 75.6889,
+    "min_trust_score": 0.0,
+    "num_requests": 90,
+    "review_or_defer_rate": 0.5778,
+    "router_action_counts": {
+      "ACTIVE_LEARNING": 16,
+      "AUTO_ACCEPT": 38,
+      "HUMAN_REVIEW": 31,
+      "RETRAIN_EVAL": 5
+    },
+    "top_failure_ids": {
+      "F10_UNSAFE_AUTO_DECISION": 16,
+      "F1_DATA_DRIFT": 21,
+      "F3_LOW_CONFIDENCE_PREDICTION": 37,
+      "F4_OUT_OF_DISTRIBUTION_INPUT": 14,
+      "F8_WIDE_PREDICTION_INTERVAL": 32,
+      "F9_MODEL_DECAY_OVER_TIME": 15
+    }
+  },
+  "status": "completed"
+}

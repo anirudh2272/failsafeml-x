@@ -1,0 +1,158 @@
+{
+  "artifacts": {
+    "calibration_plot": "reports/figures/m2_healthcare_calibration.png",
+    "prediction_interval_plot": "reports/figures/m2_energy_prediction_intervals.png"
+  },
+  "datasets": {
+    "energy_timeseries": {
+      "conformal_prediction_intervals": {
+        "alpha": 0.1,
+        "coverage": 0.9339,
+        "max_interval_width": 14.4399,
+        "mean_interval_width": 14.4399,
+        "median_interval_width": 14.4399,
+        "min_interval_width": 14.4399,
+        "qhat": 7.2199,
+        "target_coverage": 0.9
+      },
+      "dataset": "synthetic_energy_demand",
+      "metrics": {
+        "mae": 3.2118,
+        "mape": 2.4548,
+        "r2": 0.6137,
+        "rmse": 4.03
+      },
+      "model": "gradient_boosting_regressor",
+      "num_calibration": 226,
+      "num_test": 227,
+      "num_train": 679,
+      "task": "time_series_regression"
+    },
+    "healthcare_classification": {
+      "calibration_bins": [
+        {
+          "abs_gap": 0.0649,
+          "bin_lower": 0.0,
+          "bin_upper": 0.1,
+          "count": 77,
+          "empirical_positive_rate": 0.0,
+          "mean_probability": 0.0649
+        },
+        {
+          "abs_gap": 0.0966,
+          "bin_lower": 0.1,
+          "bin_upper": 0.2,
+          "count": 51,
+          "empirical_positive_rate": 0.0392,
+          "mean_probability": 0.1359
+        },
+        {
+          "abs_gap": 0.1181,
+          "bin_lower": 0.2,
+          "bin_upper": 0.3,
+          "count": 33,
+          "empirical_positive_rate": 0.1212,
+          "mean_probability": 0.2393
+        },
+        {
+          "abs_gap": 0.1921,
+          "bin_lower": 0.3,
+          "bin_upper": 0.4,
+          "count": 32,
+          "empirical_positive_rate": 0.1562,
+          "mean_probability": 0.3484
+        },
+        {
+          "abs_gap": 0.0225,
+          "bin_lower": 0.4,
+          "bin_upper": 0.5,
+          "count": 16,
+          "empirical_positive_rate": 0.4375,
+          "mean_probability": 0.46
+        },
+        {
+          "abs_gap": 0.1253,
+          "bin_lower": 0.5,
+          "bin_upper": 0.6,
+          "count": 19,
+          "empirical_positive_rate": 0.4211,
+          "mean_probability": 0.5464
+        },
+        {
+          "abs_gap": 0.1801,
+          "bin_lower": 0.6,
+          "bin_upper": 0.7,
+          "count": 15,
+          "empirical_positive_rate": 0.4667,
+          "mean_probability": 0.6468
+        },
+        {
+          "abs_gap": 0.0839,
+          "bin_lower": 0.7,
+          "bin_upper": 0.8,
+          "count": 31,
+          "empirical_positive_rate": 0.8387,
+          "mean_probability": 0.7549
+        },
+        {
+          "abs_gap": 0.1319,
+          "bin_lower": 0.8,
+          "bin_upper": 0.9,
+          "count": 41,
+          "empirical_positive_rate": 0.9756,
+          "mean_probability": 0.8437
+        },
+        {
+          "abs_gap": 0.0868,
+          "bin_lower": 0.9,
+          "bin_upper": 1.0,
+          "count": 5,
+          "empirical_positive_rate": 1.0,
+          "mean_probability": 0.9132
+        }
+      ],
+      "calibration_summary": {
+        "calibration_warning": true,
+        "empirical_accuracy": 0.8656,
+        "expected_calibration_error": 0.1058,
+        "high_confidence_rate": 0.4188,
+        "low_confidence_rate": 0.1094,
+        "mean_confidence": 0.7916,
+        "overconfidence_gap": 0.0
+      },
+      "conformal_prediction_sets": {
+        "alpha": 0.1,
+        "average_set_size": 1.0781,
+        "coverage": 0.9,
+        "empty_set_rate": 0.0,
+        "qhat": 0.5604,
+        "singleton_rate": 0.9219,
+        "target_coverage": 0.9
+      },
+      "dataset": "synthetic_healthcare_risk",
+      "metrics": {
+        "accuracy": 0.8656,
+        "auroc": 0.9468,
+        "brier_score": 0.0963,
+        "expected_calibration_error": 0.1058,
+        "f1": 0.8
+      },
+      "model": "random_forest",
+      "num_calibration": 320,
+      "num_test": 320,
+      "num_train": 960,
+      "task": "binary_classification"
+    }
+  },
+  "honest_claim": "Uncertainty and calibration reporting are implemented. No self-healing repair policy or novelty claim yet.",
+  "m2_reliability_summary": {
+    "classification_calibration_warning": true,
+    "classification_conformal_target_met": true,
+    "m2_limitation": "Reliability signals are measured, but repairs are not yet triggered.",
+    "regression_conformal_target_met": true
+  },
+  "milestone": "M2_UNCERTAINTY_AND_CALIBRATION_ENGINE",
+  "next_milestone": "M3_DRIFT_AND_OOD_DETECTION",
+  "project": "FailSafeML-X",
+  "status": "completed"
+}

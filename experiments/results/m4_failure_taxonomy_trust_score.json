@@ -1,0 +1,140 @@
+{
+  "artifacts": {
+    "failure_count_plot": "reports/figures/m4_failure_counts.png",
+    "trust_score_plot": "reports/figures/m4_trust_scores.png"
+  },
+  "datasets": {
+    "energy_timeseries": {
+      "dataset": "synthetic_energy_demand",
+      "dataset_key": "energy_timeseries",
+      "failure_signals": [
+        {
+          "description": "Current input features no longer resemble the reference distribution.",
+          "evidence": "9 features crossed drift thresholds.",
+          "failure_id": "F1_DATA_DRIFT",
+          "name": "Data drift",
+          "penalty": 25,
+          "recommended_action": "Flag data pipeline drift and pause automatic forecast-based actions.",
+          "severity": "high"
+        },
+        {
+          "description": "Current shifted data produces worse metrics than the reference data.",
+          "evidence": "Prediction PSI=0.1577.",
+          "failure_id": "F9_MODEL_DECAY_OVER_TIME",
+          "name": "Model decay over time",
+          "penalty": 15,
+          "recommended_action": "Compare forecast residuals against current-distribution labels and retrain if confirmed.",
+          "severity": "medium"
+        },
+        {
+          "description": "Distance-based OOD scoring indicates current inputs are far from the training/reference region.",
+          "evidence": "OOD rate=0.9916 using Mahalanobis threshold=19.0555.",
+          "failure_id": "F4_OUT_OF_DISTRIBUTION_INPUT",
+          "name": "Out-of-distribution input",
+          "penalty": 25,
+          "recommended_action": "Block automation for OOD forecast contexts and request analyst review.",
+          "severity": "high"
+        },
+        {
+          "description": "Conformal intervals or sets indicate high uncertainty around the model output.",
+          "evidence": "Mean conformal interval width=14.4399; M2 RMSE=4.03.",
+          "failure_id": "F8_WIDE_PREDICTION_INTERVAL",
+          "name": "Wide prediction interval",
+          "penalty": 15,
+          "recommended_action": "Report interval forecasts and avoid point-estimate-only automation.",
+          "severity": "medium"
+        },
+        {
+          "description": "Current shifted data produces worse metrics than the reference data.",
+          "evidence": "MAE changed from 2.7868 to 3.8468 under shifted current data.",
+          "failure_id": "F9_MODEL_DECAY_OVER_TIME",
+          "name": "Model decay over time",
+          "penalty": 15,
+          "recommended_action": "Run retraining benchmark on current data before production use.",
+          "severity": "medium"
+        },
+        {
+          "description": "The model should not automatically act because multiple reliability warnings are active.",
+          "evidence": "4 major reliability conditions are active simultaneously.",
+          "failure_id": "F10_UNSAFE_AUTO_DECISION",
+          "name": "Unsafe auto decision",
+          "penalty": 35,
+          "recommended_action": "Disable automatic forecast-triggered actions and escalate for review.",
+          "severity": "critical"
+        }
+      ],
+      "honest_scope": "This profile explains reliability risk. It still does not execute repairs.",
+      "model": "gradient_boosting_regressor",
+      "task": "time_series_regression",
+      "trust_summary": {
+        "num_failures": 6,
+        "risk_level": "critical",
+        "routing_decision": "ESCALATE_AND_BLOCK_AUTOMATION",
+        "total_penalty": 100,
+        "trust_score": 0.0
+      }
+    },
+    "healthcare_classification": {
+      "dataset": "synthetic_healthcare_risk",
+      "dataset_key": "healthcare_classification",
+      "failure_signals": [
+        {
+          "description": "Current input features no longer resemble the reference distribution.",
+          "evidence": "5 features crossed drift thresholds.",
+          "failure_id": "F1_DATA_DRIFT",
+          "name": "Data drift",
+          "penalty": 25,
+          "recommended_action": "Flag data pipeline drift and evaluate current cohort before automatic decisions.",
+          "severity": "high"
+        },
+        {
+          "description": "Predicted probabilities are not well aligned with empirical frequencies.",
+          "evidence": "ECE=0.1058 and calibration_warning=True.",
+          "failure_id": "F7_CALIBRATION_FAILURE",
+          "name": "Calibration failure",
+          "penalty": 15,
+          "recommended_action": "Apply recalibration or require calibrated probability reporting before deployment.",
+          "severity": "medium"
+        },
+        {
+          "description": "A meaningful fraction of decisions are made with weak model confidence.",
+          "evidence": "Low-confidence rate=0.1094.",
+          "failure_id": "F3_LOW_CONFIDENCE_PREDICTION",
+          "name": "Low-confidence prediction",
+          "penalty": 8,
+          "recommended_action": "Route low-confidence cases to human review or request more features.",
+          "severity": "low"
+        },
+        {
+          "description": "The model should not automatically act because multiple reliability warnings are active.",
+          "evidence": "2 major reliability conditions are active simultaneously.",
+          "failure_id": "F10_UNSAFE_AUTO_DECISION",
+          "name": "Unsafe auto decision",
+          "penalty": 35,
+          "recommended_action": "Disable automatic decisioning for affected slices and require human review.",
+          "severity": "critical"
+        }
+      ],
+      "honest_scope": "This profile explains reliability risk. It still does not execute repairs.",
+      "model": "random_forest",
+      "task": "binary_classification",
+      "trust_summary": {
+        "num_failures": 4,
+        "risk_level": "critical",
+        "routing_decision": "ESCALATE_AND_BLOCK_AUTOMATION",
+        "total_penalty": 83,
+        "trust_score": 17.0
+      }
+    }
+  },
+  "honest_claim": "Failure taxonomy and trust-score routing are implemented. No automated repair execution or self-healing claim yet.",
+  "m4_reliability_summary": {
+    "energy_routing_decision": "ESCALATE_AND_BLOCK_AUTOMATION",
+    "healthcare_routing_decision": "ESCALATE_AND_BLOCK_AUTOMATION",
+    "m4_limitation": "Signals are translated into taxonomy and routing recommendations, but repairs are not yet triggered."
+  },
+  "milestone": "M4_FAILURE_TAXONOMY_AND_TRUST_SCORE",
+  "next_milestone": "M5_REPAIR_ENGINE_AND_BEFORE_AFTER_BENCHMARK",
+  "project": "FailSafeML-X",
+  "status": "completed"
+}
