@@ -198,7 +198,7 @@ RL-Style Repair Router
 FastAPI / Streamlit Demo Layer
 ```
 
-![FailSafeML-X Architecture](reports/figures/m8_system_architecture.png)
+![FailSafeML-X Architecture](reports/figures/failsafeml_architecture.svg)
 
 ---
 
