@@ -2,92 +2,165 @@
 
 FailSafeML-X is an ML reliability prototype I built to explore a simple but important question:
 
-> What should happen when a machine learning model gives a prediction, but the system is not confident enough to trust it automatically?
+> What should happen when a machine learning model produces a prediction, but the system is not confident enough to trust it automatically?
 
-Most ML projects stop at accuracy, F1 score, or RMSE. This project looks at what happens after a model produces a prediction. It checks whether the prediction is reliable, whether the input looks different from the training data, whether the model is poorly calibrated, and whether the decision should be accepted, deferred, routed to human review, or used for retraining.
+Most ML projects stop at accuracy, F1 score, AUROC, RMSE, or a similar model metric. This project looks at what happens after a model produces a prediction. It checks whether the prediction is reliable, whether the input looks different from the training data, whether the model is poorly calibrated, and whether the decision should be accepted, deferred, routed to human review, or used for retraining.
 
 This is not a RAG project or a chatbot. It is a model-agnostic reliability layer for ML systems.
 
-The system converts a raw model prediction into a structured reliability decision envelope:
+---
+
+## Overview
+
+FailSafeML-X wraps a model prediction inside a reliability decision pipeline:
 
 ```text
-prediction → uncertainty → drift/OOD signals → failure taxonomy → trust score → repair plan → router action
+data -> model -> prediction -> reliability audit -> failure diagnosis -> repair action -> routing decision
 ```
 
-## Current status
+Instead of returning only a class label or regression output, the system produces a structured decision envelope with:
 
-This repository contains a completed locally verified prototype through Milestone 8.
+- uncertainty and calibration diagnostics
+- drift and out-of-distribution signals
+- explicit failure IDs
+- trust score
+- recommended repair action
+- routing decision
+- API-ready output
+- dashboard visualization
+- reproducible benchmark reports
 
-| Milestone | Component | Status |
-|---|---|---|
-| M1 | Baseline multi-domain reliability benchmark | Complete |
-| M2 | Uncertainty and calibration engine | Complete |
-| M3 | Drift and out-of-distribution detection | Complete |
-| M4 | Failure taxonomy and trust score | Complete |
-| M5 | Repair engine and before/after benchmark | Complete |
-| M6 | RL-style repair router | Complete |
-| M7 | FastAPI, Streamlit dashboard, and demo layer | Complete |
-| M8 | Final packaging, Docker, docs, and project artifacts | Complete |
+The goal is not to make a model magically safe. The goal is to make risky automated decisions easier to detect, explain, and route through safer paths.
 
-Local validation:
+---
 
-```text
-47 passed
-M8 completed successfully.
-```
+## Why this project matters
 
-## Problem
+A model can perform well on a benchmark and still fail in deployment.
 
-ML systems can fail even when model accuracy looks acceptable. A prediction may be high confidence but poorly calibrated, generated on shifted data, affected by out-of-distribution inputs, or unsafe to automate without human review.
+Some common real-world failure cases include:
 
-FailSafeML-X treats reliability as a first-class system layer. Instead of only returning a prediction, it produces:
+- incoming data no longer matches the training distribution
+- the model is overconfident
+- prediction confidence is too low
+- the input is out-of-distribution
+- calibration has degraded
+- the model should not be allowed to make an automated decision
 
-- uncertainty and calibration diagnostics,
-- drift and OOD signals,
-- explicit failure IDs,
-- trust score,
-- repair plan,
-- routing decision,
-- API/dashboard output,
-- reproducible benchmark reports.
+FailSafeML-X treats reliability as a system layer between a model and an automated decision.
 
-## Core question
+The central idea is simple:
 
-Can a model-agnostic reliability layer reduce unsafe automated ML decisions by detecting reliability failures and routing predictions through targeted repair actions such as abstention, human review, active learning, threshold adjustment, and retrain evaluation?
+> A model should not always be allowed to act just because it produced a prediction.
+
+---
 
 ## What I built
 
-### 1. Multi-Domain Reliability Benchmark
+### 1. Multi-domain reliability benchmark
 
-The project uses reproducible synthetic healthcare-style classification and energy-style time-series regression benchmarks.
+The project starts with two reproducible benchmark problems:
 
-### 2. Calibration and Conformal Uncertainty
+- healthcare-style binary risk classification
+- energy-style time-series regression
 
-Milestone 2 adds calibration bins, expected calibration error, confidence summaries, conformal prediction sets, and conformal prediction intervals.
+The datasets are synthetic by design, so the full pipeline can be shared and reproduced without exposing private, regulated, or proprietary data.
 
-### 3. Drift and OOD Detection
+---
 
-Milestone 3 detects feature drift, prediction drift, and distance-based out-of-distribution risk.
+### 2. Calibration and uncertainty engine
 
-### 4. Failure Taxonomy and Trust Score
+The system measures whether model confidence is trustworthy using:
 
-Milestone 4 maps reliability signals into named failure IDs, severity levels, trust scores, and deployment-routing recommendations.
+- expected calibration error
+- Brier score
+- calibration bins
+- confidence summaries
+- conformal prediction sets
+- conformal prediction intervals
 
-### 5. Repair Engine
+This helps identify cases where the model may appear confident but is not actually reliable enough for automation.
 
-Milestone 5 applies repair actions and reports before/after safety tradeoffs, including unsafe auto-decision rate and automation tradeoff plots.
+---
 
-### 6. RL-Style Repair Router
+### 3. Drift and OOD detection
 
-Milestone 6 compares rule-based routing with a cost-sensitive tabular Q-learning repair router.
+The reliability layer checks whether new inputs still resemble the training or calibration data using:
 
-### 7. API and Dashboard Demo Layer
+- feature drift detection
+- prediction drift checks
+- distance-based out-of-distribution scoring
 
-Milestone 7 exposes reliability scoring through FastAPI and provides a Streamlit dashboard.
+These signals help identify when the model is being asked to make predictions under conditions it may not have learned well.
 
-### 8. Final Packaging
+---
 
-Milestone 8 adds Docker support, release checklist, architecture documentation, demo script, resume bullets, project card, and a preliminary patent-screening note.
+### 4. Failure taxonomy
+
+Detected reliability problems are mapped into named failure IDs.
+
+Examples:
+
+```text
+F1_DATA_DRIFT
+F2_MODEL_OVERCONFIDENCE
+F3_LOW_CONFIDENCE_PREDICTION
+F4_OUT_OF_DISTRIBUTION_INPUT
+F5_LABEL_NOISE_SUSPECTED
+F6_CLASS_IMBALANCE_FAILURE
+F7_CALIBRATION_FAILURE
+F8_WIDE_PREDICTION_INTERVAL
+F9_MODEL_DECAY_OVER_TIME
+F10_UNSAFE_AUTO_DECISION
+```
+
+This makes the system easier to debug because reliability issues are named explicitly instead of being hidden inside raw metrics.
+
+---
+
+### 5. Repair engine
+
+The system recommends repair actions when reliability risks are detected.
+
+Examples:
+
+```text
+R1_RECALIBRATE_MODEL
+R2_APPLY_CONFORMAL_PREDICTION
+R3_ABSTAIN_FROM_AUTO_DECISION
+R4_ROUTE_TO_HUMAN_REVIEW
+R5_TRIGGER_ACTIVE_LEARNING
+R6_RETRAIN_WITH_REVIEWED_SAMPLES
+R7_SWITCH_TO_BACKUP_MODEL
+R8_FLAG_DATA_PIPELINE_DRIFT
+R9_ADJUST_DECISION_THRESHOLD
+R10_REQUEST_MORE_FEATURES
+```
+
+The repair engine focuses on safer routing decisions such as abstention, review, active learning, and threshold adjustment.
+
+---
+
+### 6. RL-style repair router
+
+FailSafeML-X includes a small tabular Q-learning repair router. The router compares possible repair actions using a cost-sensitive reward function that considers trust, severity, review cost, automation risk, and unsafe decisions.
+
+This is included as a research prototype to explore how reliability-aware repair policies could be selected automatically.
+
+---
+
+### 7. API and dashboard layer
+
+The project includes:
+
+- FastAPI app for reliability scoring
+- Streamlit dashboard for demo visualization
+- Docker-ready packaging
+- reproducible milestone scripts
+- pytest validation suite
+- generated reports and figures
+
+---
 
 ## Architecture
 
@@ -98,12 +171,15 @@ Data + Features
 Baseline ML Models
    |
    v
-Prediction + Probability / Interval
+Prediction
    |
-   +--> Calibration + Conformal Uncertainty
-   +--> Drift + OOD Detection
-   +--> Failure Taxonomy
-   +--> Trust Score
+   +--> Calibration Check
+   +--> Conformal Uncertainty
+   +--> Drift Detection
+   +--> OOD Detection
+   |
+   v
+Failure Taxonomy + Trust Score
    |
    v
 Repair Engine
@@ -116,88 +192,96 @@ Repair Engine
    +--> Retrain Evaluation
    |
    v
-RL-Style Router
+RL-Style Repair Router
    |
    v
 FastAPI / Streamlit Demo Layer
 ```
 
-## Technology Stack
+![FailSafeML-X Architecture](reports/figures/m8_system_architecture.png)
 
-| Area | Tools |
-|---|---|
-| ML baselines | scikit-learn, Random Forest, Gradient Boosting, Logistic Regression |
-| Reliability | calibration metrics, conformal prediction, drift detection, OOD scoring |
-| Repair logic | rule-based repair engine, abstention, human review, active learning, threshold adjustment |
-| RL routing | tabular Q-learning style router, rule baseline |
-| API | FastAPI, Uvicorn |
-| Dashboard | Streamlit |
-| Reporting | JSON, Markdown, Matplotlib figures |
-| Packaging | Dockerfile, Docker Compose, Makefile |
-| Testing | Pytest |
+---
 
-## Repository Structure
+## Milestones
+
+| Milestone | Component | Status |
+|---|---|---|
+| M1 | Baseline multi-domain reliability benchmark | Complete |
+| M2 | Uncertainty and calibration engine | Complete |
+| M3 | Drift and out-of-distribution detection | Complete |
+| M4 | Failure taxonomy and trust score | Complete |
+| M5 | Repair engine and before/after benchmark | Complete |
+| M6 | RL-style repair router | Complete |
+| M7 | FastAPI, Streamlit dashboard, and demo layer | Complete |
+| M8 | Final packaging, Docker, docs, and reports | Complete |
+
+---
+
+## Local validation
+
+Final local validation:
 
 ```text
-failsafeml-x/
-  apps/
-    streamlit_dashboard.py
-  configs/
-  docs/
-    architecture.md
-    demo_script.md
-    github_release_checklist.md
-    patent_screening_memo.md
-    resume_bullets.md
-  scripts/
-    run_m1_baseline.py
-    run_m2_uncertainty_calibration.py
-    run_m3_drift_ood.py
-    run_m4_failure_taxonomy.py
-    run_m5_repair_engine.py
-    run_m6_rl_router.py
-    run_m7_api_dashboard_demo.py
-    run_m8_final_packaging.py
-  src/failsafemlx/
-    data/
-    evaluation/
-    features/
-    models/
-    packaging/
-    reliability/
-    reporting/
-    serving/
-    utils/
-  tests/
-  Dockerfile
-  docker-compose.yml
-  Makefile
+47 passed
+M8 completed successfully
 ```
 
-## Quick Start
+FastAPI loaded successfully with the following routes:
 
-### 1. Create environment
+```text
+/health
+/reliability/score
+/reliability/batch
+/demo/batch
+/docs
+```
+
+---
+
+## Demo screenshots
+
+FastAPI documentation:
+
+![FastAPI Docs](assets/screenshots/09_fastapi_docs.png)
+
+Streamlit reliability dashboard:
+
+![Streamlit Dashboard](assets/screenshots/10_streamlit_dashboard.png)
+
+---
+
+## Quick start
+
+Clone the repository:
+
+```bash
+git clone https://github.com/anirudh2272/failsafeml-x.git
+cd failsafeml-x
+```
+
+Create and activate a virtual environment:
 
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
+```
+
+Install dependencies:
+
+```bash
 python -m pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
-### 2. Run tests
+Run tests:
 
 ```bash
 python -m pytest
 ```
 
-Expected:
+---
 
-```text
-47 passed
-```
-
-### 3. Run all milestones
+## Run the full milestone pipeline
 
 ```bash
 python scripts/run_m1_baseline.py
@@ -210,16 +294,12 @@ python scripts/run_m7_api_dashboard_demo.py
 python scripts/run_m8_final_packaging.py
 ```
 
-Expected final line:
+---
 
-```text
-M8 completed successfully.
-```
-
-## Run API
+## Run the API
 
 ```bash
-uvicorn failsafemlx.serving.fastapi_app:app --app-dir src --reload --port 8000
+PYTHONPATH=src python -m uvicorn failsafemlx.serving.fastapi_app:app --reload --port 8000
 ```
 
 Open:
@@ -228,93 +308,82 @@ Open:
 http://127.0.0.1:8000/docs
 ```
 
-## Run Dashboard
+---
+
+## Run the dashboard
 
 ```bash
-PYTHONPATH=src streamlit run apps/streamlit_dashboard.py
+PYTHONPATH=src python -m streamlit run apps/streamlit_dashboard.py
 ```
 
-## Docker
-
-Build and run API:
-
-```bash
-docker build -t failsafemlx-api:local .
-docker run -p 8000:8000 failsafemlx-api:local
-```
-
-Or use Docker Compose:
-
-```bash
-docker compose up --build
-```
-
-API:
+Open:
 
 ```text
-http://127.0.0.1:8000/docs
+http://localhost:8501
 ```
 
-Dashboard:
+---
+
+## Repository structure
 
 ```text
-http://127.0.0.1:8501
+failsafeml-x/
+├── apps/                  # Streamlit dashboard
+├── assets/                # Screenshots and project assets
+├── configs/               # Dataset and experiment configs
+├── docs/                  # Architecture, demo, release notes
+├── experiments/results/   # JSON outputs from milestone runs
+├── reports/               # Milestone reports and project card
+├── reports/figures/       # Generated plots
+├── scripts/               # Reproducible milestone runners
+├── src/failsafemlx/       # Main package
+├── tests/                 # Pytest validation suite
+├── Dockerfile
+├── docker-compose.yml
+├── Makefile
+└── README.md
 ```
 
-## API Endpoints
+---
 
-| Endpoint | Purpose |
-|---|---|
-| `GET /health` | Service health and project metadata |
-| `POST /reliability/score` | Score one prediction reliability request |
-| `POST /reliability/batch` | Score a demo batch and return summary statistics |
+## Key outputs
 
-## Generated Artifacts
+The project generates milestone reports and figures, including:
 
-| Artifact | Purpose |
-|---|---|
-| `experiments/results/m1_baseline_metrics.json` | Baseline metrics |
-| `experiments/results/m2_uncertainty_calibration.json` | Calibration and conformal uncertainty results |
-| `experiments/results/m3_drift_ood.json` | Drift and OOD results |
-| `experiments/results/m4_failure_taxonomy_trust_score.json` | Failure taxonomy and trust scoring results |
-| `experiments/results/m5_repair_engine_before_after.json` | Repair before/after benchmark |
-| `experiments/results/m6_rl_repair_router.json` | RL router benchmark |
-| `experiments/results/m7_api_dashboard_demo.json` | API/dashboard demo summary |
-| `experiments/results/m8_final_packaging.json` | Final release packaging summary |
-| `reports/milestone_*.md` | Reproducible milestone reports |
-| `reports/figures/*.png` | Generated plots |
-| `reports/final_project_card.md` | Portfolio project card |
+- baseline classification and regression metrics
+- calibration diagnostics
+- conformal uncertainty reports
+- drift and OOD summaries
+- failure taxonomy reports
+- trust score visualizations
+- repair engine before/after results
+- RL router action summaries
+- final project card
 
-## Honest Limitations
+Important report files:
 
-This is a research and portfolio prototype, not a production-certified safety system.
+```text
+reports/final_project_card.md
+reports/milestone_1_baseline.md
+reports/milestone_2_uncertainty_calibration.md
+reports/milestone_3_drift_ood.md
+reports/milestone_4_failure_taxonomy_trust_score.md
+reports/milestone_5_repair_engine_before_after.md
+reports/milestone_6_rl_repair_router.md
+reports/milestone_7_api_dashboard_demo.md
+reports/milestone_8_final_packaging.md
+```
 
-Current limitations:
+---
 
-- Synthetic benchmarks only.
-- No real hospital, grid, finance, or enterprise dataset is included.
-- Repair policies are deterministic/simulated and require real-world validation.
-- RL routing is tabular and prototype-level, not a deep RL production policy.
-- API/dashboard are local demo layers, not hardened cloud deployments.
-- Security, authentication, persistence, CI/CD, and monitoring hardening are future work.
-- Patentability is not claimed.
+## Limitations
 
-## Future Work
+FailSafeML-X is a research and portfolio prototype. It is not a production-certified safety system, medical device, financial decision engine, or compliance product.
 
-Planned extensions:
+The current version uses synthetic benchmark data so the system can be shared publicly and reproduced easily. Real-world deployment would require domain-specific validation, monitoring, governance, and human-in-the-loop review design.
 
-- Evaluate on public real-world datasets.
-- Add MLflow experiment tracking and DVC data versioning.
-- Add Prometheus/Grafana monitoring.
-- Add Kubernetes manifests.
-- Add deeper RL or contextual bandit routing.
-- Add LLM-generated reliability explanations with strict guardrails.
-- Add human-labeled validation and statistical significance testing.
+---
 
-## Research and Patent Note
+## Current status
 
-FailSafeML-X does not claim novelty over uncertainty estimation, conformal prediction, drift detection, human-in-the-loop ML, MLOps monitoring, or reinforcement learning individually.
-
-The potentially interesting direction is the integrated decision envelope that combines calibrated uncertainty, drift/OOD risk, explicit failure taxonomy, repair-plan generation, and cost-sensitive routing for model-agnostic reliability operations.
-
-Patentability is not claimed. The repository includes a preliminary, non-legal patent-screening memo only.
+FailSafeML-X is complete through Milestone 8 and ready for GitHub review, portfolio use, and further extension.
