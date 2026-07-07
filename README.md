@@ -1,8 +1,12 @@
 # FailSafeML-X
 
-**Self-Healing Reliability Layer for Real-World Machine Learning Systems**
+FailSafeML-X is an ML reliability prototype I built to explore a simple but important question:
 
-FailSafeML-X is a research-grade and portfolio-grade AI/ML systems prototype for auditing machine-learning predictions before they are allowed to trigger automated decisions. It is intentionally **not a RAG project**. The project focuses on ML reliability failures such as calibration error, high uncertainty, data drift, out-of-distribution inputs, model decay, unsafe automation, and decision-routing risk.
+> What should happen when a machine learning model gives a prediction, but the system is not confident enough to trust it automatically?
+
+Most ML projects stop at accuracy, F1 score, or RMSE. This project looks at what happens after a model produces a prediction. It checks whether the prediction is reliable, whether the input looks different from the training data, whether the model is poorly calibrated, and whether the decision should be accepted, deferred, routed to human review, or used for retraining.
+
+This is not a RAG project or a chatbot. It is a model-agnostic reliability layer for ML systems.
 
 The system converts a raw model prediction into a structured reliability decision envelope:
 
@@ -10,7 +14,7 @@ The system converts a raw model prediction into a structured reliability decisio
 prediction → uncertainty → drift/OOD signals → failure taxonomy → trust score → repair plan → router action
 ```
 
-## Project Status
+## Current status
 
 This repository contains a completed locally verified prototype through Milestone 8.
 
@@ -23,9 +27,9 @@ This repository contains a completed locally verified prototype through Mileston
 | M5 | Repair engine and before/after benchmark | Complete |
 | M6 | RL-style repair router | Complete |
 | M7 | FastAPI, Streamlit dashboard, and demo layer | Complete |
-| M8 | Final packaging, Docker, docs, and portfolio artifacts | Complete |
+| M8 | Final packaging, Docker, docs, and project artifacts | Complete |
 
-Expected local validation:
+Local validation:
 
 ```text
 47 passed
@@ -47,11 +51,11 @@ FailSafeML-X treats reliability as a first-class system layer. Instead of only r
 - API/dashboard output,
 - reproducible benchmark reports.
 
-## Core Research Question
+## Core question
 
 Can a model-agnostic reliability layer reduce unsafe automated ML decisions by detecting reliability failures and routing predictions through targeted repair actions such as abstention, human review, active learning, threshold adjustment, and retrain evaluation?
 
-## Key Contributions
+## What I built
 
 ### 1. Multi-Domain Reliability Benchmark
 
@@ -280,10 +284,6 @@ http://127.0.0.1:8501
 | `reports/milestone_*.md` | Reproducible milestone reports |
 | `reports/figures/*.png` | Generated plots |
 | `reports/final_project_card.md` | Portfolio project card |
-
-## Suggested Resume Bullet
-
-Built FailSafeML-X, a model-agnostic ML reliability layer that detects calibration failure, uncertainty, drift, OOD inputs, model decay, and unsafe automation risk, then routes predictions through repair actions including abstention, human review, active-learning queues, threshold adjustment, and retrain evaluation, with reproducible pytest validation, FastAPI serving, Streamlit dashboarding, and Docker-ready packaging.
 
 ## Honest Limitations
 
