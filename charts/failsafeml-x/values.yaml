@@ -1,0 +1,41 @@
+replicaCount: 1
+
+image:
+  repository: failsafeml-x
+  tag: latest
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 80
+  targetPort: 8000
+
+ingress:
+  enabled: false
+  className: ""
+  annotations: {}
+  hosts:
+    - host: failsafeml-x.local
+      paths:
+        - path: /
+          pathType: Prefix
+  tls: []
+
+env:
+  FAILSAFEMLX_PROVIDER_MODE: local
+  FAILSAFEMLX_ENABLE_EXTERNAL_LLM: "false"
+  FAILSAFEMLX_ENABLE_EXTERNAL_VECTOR_DB: "false"
+  FAILSAFEMLX_DEPLOYMENT_PROFILE: helm-template
+
+monitoring:
+  prometheusScrape: false
+  prometheusPath: /metrics
+  prometheusPort: "8000"
+
+resources:
+  requests:
+    cpu: 250m
+    memory: 512Mi
+  limits:
+    cpu: 1000m
+    memory: 1Gi

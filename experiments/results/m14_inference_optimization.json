@@ -1,0 +1,81 @@
+{
+  "benchmark": {
+    "batch_size": 128,
+    "benchmark_name": "local_sklearn_inference_benchmark",
+    "dataset": "synthetic_healthcare_risk",
+    "latency": {
+      "mini_batch_loop": {
+        "max_latency_ms": 1.511208,
+        "mean_latency_ms": 1.502804,
+        "median_latency_ms": 1.502688,
+        "min_latency_ms": 1.493541,
+        "mode": "mini_batch_prediction_loop",
+        "num_rows": 150,
+        "p50_latency_ms": 1.502688,
+        "p95_latency_ms": 1.509502,
+        "repeats": 10,
+        "throughput_rows_per_second": 99813.415447
+      },
+      "single_row": {
+        "max_latency_ms": 0.358416,
+        "mean_latency_ms": 0.355287,
+        "median_latency_ms": 0.354917,
+        "min_latency_ms": 0.352167,
+        "mode": "single_row_predict_proba",
+        "num_rows": 1,
+        "p50_latency_ms": 0.354917,
+        "p95_latency_ms": 0.35836,
+        "repeats": 10,
+        "throughput_rows_per_second": 2814.621961
+      },
+      "vectorized_batch": {
+        "max_latency_ms": 0.382875,
+        "mean_latency_ms": 0.374104,
+        "median_latency_ms": 0.372604,
+        "min_latency_ms": 0.369917,
+        "mode": "vectorized_batch_predict_proba",
+        "num_rows": 150,
+        "p50_latency_ms": 0.372604,
+        "p95_latency_ms": 0.380437,
+        "repeats": 10,
+        "throughput_rows_per_second": 400957.807914
+      }
+    },
+    "model_family": "logistic_regression_classifier",
+    "num_benchmark_rows": 150,
+    "optimization_notes": [
+      "Vectorized sklearn inference is benchmarked as the portable default path.",
+      "Mini-batch inference is implemented as a reusable utility for larger local batches.",
+      "ONNX Runtime is treated as an optional extension and is not required for tests.",
+      "No GPU, vLLM, Triton, or production-serving speedup is claimed."
+    ],
+    "optional_onnx_runtime": {
+      "available": false,
+      "note": "ONNX Runtime is optional and was not required for this milestone.",
+      "package": "onnxruntime"
+    },
+    "prediction_summary": {
+      "batch_size": 128,
+      "mean_positive_probability": 0.391475,
+      "num_predictions": 150,
+      "positive_prediction_rate": 0.36
+    },
+    "repeats": 10,
+    "throughput_ratio_batch_vs_single": 142.455297
+  },
+  "created_at_utc": "2026-07-09T00:23:54.065654+00:00",
+  "errors": [],
+  "generated_outputs": [
+    "experiments/results/m14_inference_optimization.json",
+    "reports/milestone_14_inference_optimization.md"
+  ],
+  "honest_claim": "Added local inference benchmarking for latency, p50/p95, throughput, and mini-batch inference. No production-serving or GPU acceleration claim is made.",
+  "milestone": "M14_INFERENCE_OPTIMIZATION_BENCHMARK",
+  "missing_required_paths": [],
+  "next_milestone": "M15_TERRAFORM_HELM_DEPLOYMENT_TEMPLATES",
+  "passed": true,
+  "project": "FailSafeML-X",
+  "required_paths_checked": 7,
+  "status": "completed",
+  "warnings": []
+}

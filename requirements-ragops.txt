@@ -1,0 +1,8 @@
+# Optional RAGOps dependencies. These are NOT required for normal tests or local CI.
+# Install only when adding real vector database or embedding-backed retrieval.
+# chromadb
+# qdrant-client
+# pinecone-client
+# weaviate-client
+# faiss-cpu
+# sentence-transformers

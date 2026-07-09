@@ -1,0 +1,152 @@
+{
+  "dataset_validation": {
+    "dataset_path": "/Users/anirudhkoganti/failsafeml_m20/failsafeml-x-m20-final/data/fine_tuning/reliability_explanations_sample.jsonl",
+    "domains": [
+      "dataset_validation",
+      "energy",
+      "healthcare",
+      "provider_safety",
+      "ragops",
+      "tabular_ml",
+      "time_series"
+    ],
+    "errors": [],
+    "passed": true,
+    "record_count": 12,
+    "required_fields": [
+      "input",
+      "instruction",
+      "metadata",
+      "output"
+    ],
+    "unique_failure_ids": [
+      "DATA_VALIDATION_LEAKAGE_WARNING",
+      "F10_UNSAFE_AUTO_DECISION",
+      "F1_DATA_DRIFT",
+      "F2_MODEL_OVERCONFIDENCE",
+      "F3_LOW_CONFIDENCE_PREDICTION",
+      "F4_OUT_OF_DISTRIBUTION_INPUT",
+      "F7_CALIBRATION_FAILURE",
+      "F8_WIDE_PREDICTION_INTERVAL",
+      "PROVIDER_EXTERNAL_CALL_BLOCKED",
+      "RAG_F2_STALE_DOCUMENT",
+      "RAG_F3_MISSING_CITATION",
+      "RAG_F5_PROMPT_INJECTION_IN_CONTEXT"
+    ],
+    "unique_repair_actions": [
+      "R1_RECALIBRATE_MODEL",
+      "R2_APPLY_CONFORMAL_PREDICTION",
+      "R3_ABSTAIN_FROM_AUTO_DECISION",
+      "R4_ROUTE_TO_HUMAN_REVIEW",
+      "R8_FLAG_DATA_PIPELINE_DRIFT",
+      "RAG_R2_FILTER_STALE_DOCUMENTS",
+      "RAG_R3_REQUIRE_CITATIONS",
+      "RAG_R6_BLOCK_PROMPT_INJECTION",
+      "REMOVE_LEAKAGE_COLUMNS",
+      "USE_LOCAL_PROVIDER_ONLY"
+    ],
+    "warnings": []
+  },
+  "errors": [],
+  "generated_files": [
+    "data/fine_tuning/reliability_explanations_sample.jsonl",
+    "docs/optional_lora_training_stub.md",
+    "reports/milestone_19_finetuning_scaffold.md",
+    "experiments/results/m19_finetuning_scaffold.json"
+  ],
+  "honest_limitations": [
+    "This milestone creates a LoRA/PEFT scaffold only; no model is fine-tuned.",
+    "The sample dataset is small and synthetic; real training requires a larger reviewed dataset.",
+    "No GPU, model download, Hugging Face login, or external provider call is required for tests.",
+    "Before real training, review privacy, licensing, evaluation quality, and model safety constraints."
+  ],
+  "lora_validation": {
+    "config": {
+      "base_model_name": "placeholder-local-reliability-explainer",
+      "bias": "none",
+      "gradient_checkpointing": false,
+      "learning_rate": 0.0002,
+      "lora_alpha": 16,
+      "lora_dropout": 0.05,
+      "max_seq_length": 1024,
+      "num_train_epochs": 1,
+      "per_device_train_batch_size": 1,
+      "r": 8,
+      "target_modules": [
+        "q_proj",
+        "v_proj"
+      ],
+      "task_type": "CAUSAL_LM"
+    },
+    "errors": [],
+    "passed": true,
+    "peft_config_preview": {
+      "bias": "none",
+      "lora_alpha": 16,
+      "lora_dropout": 0.05,
+      "r": 8,
+      "target_modules": [
+        "q_proj",
+        "v_proj"
+      ],
+      "task_type": "CAUSAL_LM"
+    },
+    "warnings": [
+      "Base model is a placeholder; choose a real compatible model before actual training."
+    ]
+  },
+  "milestone": "M19_LORA_PEFT_FINETUNING_SCAFFOLD",
+  "passed": true,
+  "safety_summary": {
+    "adapter_weights_created": false,
+    "external_api_calls_performed": false,
+    "gpu_required_for_tests": false,
+    "model_download_performed": false,
+    "training_performed": false
+  },
+  "training_plan": {
+    "base_model_name": "placeholder-local-reliability-explainer",
+    "command_preview": "python -m failsafemlx.finetuning.training_stub --dataset data/fine_tuning/reliability_explanations_sample.jsonl --output-dir artifacts/lora_reliability_explainer --base-model placeholder-local-reliability-explainer",
+    "dataset_path": "data/fine_tuning/reliability_explanations_sample.jsonl",
+    "downloads_models_during_tests": false,
+    "optional_packages": [
+      "torch",
+      "transformers",
+      "datasets",
+      "peft",
+      "accelerate",
+      "trl"
+    ],
+    "output_dir": "artifacts/lora_reliability_explainer",
+    "requires_gpu_for_tests": false,
+    "training_enabled_by_default": false
+  },
+  "training_validation": {
+    "errors": [],
+    "passed": true,
+    "plan": {
+      "base_model_name": "placeholder-local-reliability-explainer",
+      "command_preview": "python -m failsafemlx.finetuning.training_stub --dataset data/fine_tuning/reliability_explanations_sample.jsonl --output-dir artifacts/lora_reliability_explainer --base-model placeholder-local-reliability-explainer",
+      "dataset_path": "data/fine_tuning/reliability_explanations_sample.jsonl",
+      "downloads_models_during_tests": false,
+      "optional_packages": [
+        "torch",
+        "transformers",
+        "datasets",
+        "peft",
+        "accelerate",
+        "trl"
+      ],
+      "output_dir": "artifacts/lora_reliability_explainer",
+      "requires_gpu_for_tests": false,
+      "training_enabled_by_default": false
+    },
+    "warnings": [
+      "Base model is a placeholder; actual training requires choosing a compatible model."
+    ]
+  },
+  "warnings": [
+    "Base model is a placeholder; choose a real compatible model before actual training.",
+    "Base model is a placeholder; actual training requires choosing a compatible model."
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "milestone": "M17_INFRA_TEMPLATES",
+  "passed": true,
+  "checked_files": [
+    "infra/terraform/README.md",
+    "infra/terraform/main.tf",
+    "infra/terraform/variables.tf",
+    "infra/terraform/outputs.tf",
+    "charts/failsafeml-x/Chart.yaml",
+    "charts/failsafeml-x/values.yaml",
+    "charts/failsafeml-x/templates/deployment.yaml",
+    "charts/failsafeml-x/templates/service.yaml",
+    "charts/failsafeml-x/templates/ingress.yaml",
+    "docs/deployment_templates.md"
+  ],
+  "required_files": [
+    "infra/terraform/README.md",
+    "infra/terraform/main.tf",
+    "infra/terraform/variables.tf",
+    "infra/terraform/outputs.tf",
+    "charts/failsafeml-x/Chart.yaml",
+    "charts/failsafeml-x/values.yaml",
+    "charts/failsafeml-x/templates/deployment.yaml",
+    "charts/failsafeml-x/templates/service.yaml",
+    "charts/failsafeml-x/templates/ingress.yaml",
+    "docs/deployment_templates.md"
+  ],
+  "template_summary": {
+    "terraform_files": 4,
+    "helm_files": 5,
+    "service_target": "FailSafeML-X FastAPI API service on port 8000",
+    "provider_default": "local/offline",
+    "external_llm_default_enabled": false,
+    "external_vector_db_default_enabled": false,
+    "terraform_executed": false,
+    "helm_executed": false,
+    "kubernetes_cluster_required_for_tests": false
+  },
+  "errors": [],
+  "warnings": [],
+  "honest_limitations": [
+    "Validation is static and does not run terraform plan/apply.",
+    "Validation is static and does not run helm template/install.",
+    "No Kubernetes cluster or cloud deployment is created by this milestone.",
+    "Production deployment requires real cluster, image registry, networking, authentication, and security review."
+  ],
+  "artifacts": {
+    "result": "experiments/results/m17_infra_templates.json",
+    "report": "reports/milestone_17_infra_templates.md",
+    "terraform_dir": "infra/terraform",
+    "helm_chart_dir": "charts/failsafeml-x",
+    "docs": "docs/deployment_templates.md"
+  }
+}

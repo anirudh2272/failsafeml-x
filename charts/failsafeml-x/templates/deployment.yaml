@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-api
+  labels:
+    app.kubernetes.io/name: failsafeml-x
+    app.kubernetes.io/component: api
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: failsafeml-x
+      app.kubernetes.io/component: api
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: failsafeml-x
+        app.kubernetes.io/component: api
+      annotations:
+        prometheus.io/scrape: "{{ .Values.monitoring.prometheusScrape }}"
+        prometheus.io/path: "{{ .Values.monitoring.prometheusPath }}"
+        prometheus.io/port: "{{ .Values.monitoring.prometheusPort }}"
+    spec:
+      containers:
+        - name: failsafeml-x-api
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.service.targetPort }}
+          env:
+            - name: FAILSAFEMLX_PROVIDER_MODE
+              value: "{{ .Values.env.FAILSAFEMLX_PROVIDER_MODE }}"
+            - name: FAILSAFEMLX_ENABLE_EXTERNAL_LLM
+              value: "{{ .Values.env.FAILSAFEMLX_ENABLE_EXTERNAL_LLM }}"
+            - name: FAILSAFEMLX_ENABLE_EXTERNAL_VECTOR_DB
+              value: "{{ .Values.env.FAILSAFEMLX_ENABLE_EXTERNAL_VECTOR_DB }}"
+            - name: FAILSAFEMLX_DEPLOYMENT_PROFILE
+              value: "{{ .Values.env.FAILSAFEMLX_DEPLOYMENT_PROFILE }}"
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: http
+            initialDelaySeconds: 10
+            periodSeconds: 15
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: http
+            initialDelaySeconds: 20
+            periodSeconds: 30
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}

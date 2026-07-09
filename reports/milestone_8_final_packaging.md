@@ -41,7 +41,21 @@ Package FailSafeML-X as a GitHub-ready research and portfolio prototype with Doc
 
 ## Generated Reports Detected
 
-- `reports/milestone_1_baseline.md`
+- `reports/milestone_10_agentic_reliability.md`
+- `reports/milestone_11_airflow_orchestration.md`
+- `reports/milestone_12_spark_drift_pipeline.md`
+- `reports/milestone_13_ai_security.md`
+- `reports/milestone_14_inference_optimization.md`
+- `reports/milestone_15a_provider_abstraction.md`
+- `reports/milestone_15b_ragops_reliability.md`
+- `reports/milestone_15c_dataset_validation.md`
+- `reports/milestone_15d_provider_agent_integration.md`
+- `reports/milestone_15e_experiment_registry.md`
+- `reports/milestone_16_monitoring_metrics.md`
+- `reports/milestone_17_infra_templates.md`
+- `reports/milestone_18_cloud_ai_templates.md`
+- `reports/milestone_19_finetuning_scaffold.md`
+- `reports/milestone_20_final_advanced_packaging.md`
 - `reports/milestone_2_uncertainty_calibration.md`
 - `reports/milestone_3_drift_ood.md`
 - `reports/milestone_4_failure_taxonomy_trust_score.md`
@@ -49,6 +63,7 @@ Package FailSafeML-X as a GitHub-ready research and portfolio prototype with Doc
 - `reports/milestone_6_rl_repair_router.md`
 - `reports/milestone_7_api_dashboard_demo.md`
 - `reports/milestone_8_final_packaging.md`
+- `reports/milestone_9_cicd_software_quality.md`
 
 ## Honest Limitation
 

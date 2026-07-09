@@ -1,0 +1,11 @@
+{
+  "dataset_name": "healthcare_sample",
+  "task_type": "binary_classification",
+  "required_columns": ["patient_id", "age", "bmi", "blood_pressure", "glucose", "risk_label"],
+  "numeric_columns": ["age", "bmi", "blood_pressure", "glucose"],
+  "categorical_columns": ["patient_id"],
+  "target_column": "risk_label",
+  "allowed_target_values": [0, 1],
+  "imbalance_threshold": 0.15,
+  "leakage_keywords": ["target_leak", "label_copy", "outcome_future", "future_result"]
+}

@@ -1,0 +1,3 @@
+# Optional dependencies for M12 distributed drift experiments.
+# Main tests do not require installing this file.
+pyspark>=3.5

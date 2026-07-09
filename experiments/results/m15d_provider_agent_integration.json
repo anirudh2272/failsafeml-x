@@ -1,0 +1,513 @@
+{
+  "average_trust_score": 0.58,
+  "blocked_external_provider_output": {
+    "case_id": "m15d_drift_case",
+    "external_provider_enabled": false,
+    "failure_explanation": "F1_DATA_DRIFT (high): Current feature distribution differs from the reference/training distribution. | F7_CALIBRATION_FAILURE (high): Predicted probabilities do not align well with empirical outcome frequencies.",
+    "human_review_note": "Sample m15d_drift_case should be handled with action R8_FLAG_DATA_PIPELINE_DRIFT (Flag data pipeline drift). Trust score: 0.52. Detected failure IDs: F1_DATA_DRIFT, F7_CALIBRATION_FAILURE. Reason: Drift risk is high enough to flag the input/data pipeline before automation.",
+    "limitations": [
+      "Default provider-aware agent path is local and deterministic.",
+      "External LLM providers are optional and disabled by default.",
+      "Provider output explains reliability decisions but does not override safety routing.",
+      "No production safety certification or live cloud deployment is claimed."
+    ],
+    "local_analysis": {
+      "agent_mode": "deterministic_local_fallback",
+      "agent_name": "failsafemlx_reliability_agent",
+      "case": {
+        "calibration_error": 0.18,
+        "domain": "healthcare_risk",
+        "drift_score": 0.73,
+        "failure_ids": [
+          "F1_DATA_DRIFT",
+          "F7_CALIBRATION_FAILURE"
+        ],
+        "ood_score": 0.27,
+        "prediction": "approve_high_risk",
+        "sample_id": "m15d_drift_case",
+        "trust_score": 0.52,
+        "uncertainty": 0.48
+      },
+      "drift_ood_summary": {
+        "combined_risk": 0.73,
+        "drift_score": 0.73,
+        "ood_score": 0.27,
+        "recommended_drift_action": "flag_drift",
+        "severity": "high"
+      },
+      "failure_explanations": [
+        {
+          "description": "Current feature distribution differs from the reference/training distribution.",
+          "failure_id": "F1_DATA_DRIFT",
+          "name": "Data drift",
+          "primary_repair": "R8_FLAG_DATA_PIPELINE_DRIFT",
+          "severity": "high"
+        },
+        {
+          "description": "Predicted probabilities do not align well with empirical outcome frequencies.",
+          "failure_id": "F7_CALIBRATION_FAILURE",
+          "name": "Calibration failure",
+          "primary_repair": "R1_RECALIBRATE_MODEL",
+          "severity": "high"
+        }
+      ],
+      "human_review_note": "Sample m15d_drift_case should be handled with action R8_FLAG_DATA_PIPELINE_DRIFT (Flag data pipeline drift). Trust score: 0.52. Detected failure IDs: F1_DATA_DRIFT, F7_CALIBRATION_FAILURE. Reason: Drift risk is high enough to flag the input/data pipeline before automation.",
+      "limitations": [
+        "Default mode is deterministic and does not call external LLM APIs.",
+        "LangGraph/LangChain are optional integration targets, not required runtime dependencies.",
+        "Agent recommendations support reliability review and do not certify production safety."
+      ],
+      "optional_integrations": {
+        "langchain_available": false,
+        "langgraph_available": false
+      },
+      "project": "FailSafeML-X",
+      "recommended_action": {
+        "action_id": "R8_FLAG_DATA_PIPELINE_DRIFT",
+        "auto_decision_allowed": false,
+        "decision": "flag_drift",
+        "label": "Flag data pipeline drift",
+        "reason": "Drift risk is high enough to flag the input/data pipeline before automation."
+      },
+      "trust_summary": {
+        "default_decision": "abstain",
+        "explanation": "Trust score is weak; automatic decisioning should be avoided.",
+        "trust_band": "low",
+        "trust_score": 0.52
+      }
+    },
+    "milestone": "M15D_PROVIDER_AWARE_AGENT_INTEGRATION",
+    "project": "FailSafeML-X",
+    "provider_explanation": "Local reliability explanation: FailSafeML-X analyzed the reliability envelope without calling an external LLM provider. Review the failure IDs, trust score, drift/OOD indicators, repair action, and human-review routing before allowing automation. Input summary: Summarize this FailSafeML-X reliability analysis for an ML reviewer. Keep the explanation concise and do not override guardrail or human-review decisions. { \"case\": { \"calibration_error\": 0.18, \"domain\": \"healthcare_risk\", \"drift_score\": 0.73, \"failure_ids\": [ \"F1_DATA_DRIFT\", \"F7_CALIBRATION_FAILURE\" ], \"ood_score\": 0.27, \"prediction\": \"approve_high_risk\", \"sample_id\": \"m15d_drift_case\", \"trust_score\": 0.52, \"uncertainty\": 0.48 }, \"drift_ood_summary\": { \"combined_risk\": 0.73, \"drift_score\": ...",
+    "provider_metadata": {
+      "fallback_reason": "external_provider_blocked_by_default",
+      "model": "local-deterministic-reliability-explainer",
+      "provider": "local",
+      "raw_provider": "deterministic_local_fallback",
+      "usage": {
+        "prompt_chars": 1704,
+        "response_chars": 762
+      },
+      "used_external_api": false
+    },
+    "provider_requested": "bedrock",
+    "provider_used": "local",
+    "repair_recommendation": {
+      "action_id": "R8_FLAG_DATA_PIPELINE_DRIFT",
+      "auto_decision_allowed": false,
+      "decision": "flag_drift",
+      "label": "Flag data pipeline drift",
+      "reason": "Drift risk is high enough to flag the input/data pipeline before automation."
+    },
+    "risk_summary": {
+      "critical_failure_count": 0,
+      "drift_ood_severity": "high",
+      "high_failure_count": 2,
+      "medium_failure_count": 0,
+      "recommended_action_id": "R8_FLAG_DATA_PIPELINE_DRIFT",
+      "recommended_decision": "flag_drift",
+      "risk_level": "high",
+      "trust_band": "low",
+      "trust_score": 0.52
+    },
+    "used_external_api": false,
+    "warnings": [
+      "External LLM providers are disabled by default. Set FAILSAFEMLX_ENABLE_EXTERNAL_LLM=true or call get_provider(..., allow_external=True) intentionally."
+    ]
+  },
+  "case_count": 3,
+  "case_summaries": [
+    {
+      "case_id": "m15d_safe_case",
+      "provider_requested": "local",
+      "provider_used": "local",
+      "recommended_action_id": "ACCEPT_WITH_MONITORING",
+      "recommended_decision": "accept",
+      "risk_level": "high",
+      "used_external_api": false,
+      "warning_count": 0
+    },
+    {
+      "case_id": "m15d_drift_case",
+      "provider_requested": "local",
+      "provider_used": "local",
+      "recommended_action_id": "R8_FLAG_DATA_PIPELINE_DRIFT",
+      "recommended_decision": "flag_drift",
+      "risk_level": "high",
+      "used_external_api": false,
+      "warning_count": 0
+    },
+    {
+      "case_id": "m15d_critical_case",
+      "provider_requested": "local",
+      "provider_used": "local",
+      "recommended_action_id": "R4_ROUTE_TO_HUMAN_REVIEW",
+      "recommended_decision": "human_review",
+      "risk_level": "critical",
+      "used_external_api": false,
+      "warning_count": 0
+    },
+    {
+      "case_id": "m15d_drift_case",
+      "provider_requested": "bedrock",
+      "provider_used": "local",
+      "recommended_action_id": "R8_FLAG_DATA_PIPELINE_DRIFT",
+      "recommended_decision": "flag_drift",
+      "risk_level": "high",
+      "used_external_api": false,
+      "warning_count": 1
+    }
+  ],
+  "created_at_utc": "2026-07-09T00:24:04.761485+00:00",
+  "errors": [],
+  "external_api_calls_used": false,
+  "external_provider_blocked_by_default": true,
+  "generated_outputs": [
+    "experiments/results/m15d_provider_agent_integration.json",
+    "reports/milestone_15d_provider_agent_integration.md"
+  ],
+  "honest_claim": "Integrated provider-aware reliability explanations with a local default provider and optional OpenAI-compatible/AWS Bedrock-style adapters disabled by default.",
+  "milestone": "M15D_PROVIDER_AWARE_AGENT_INTEGRATION",
+  "passed": true,
+  "project": "FailSafeML-X",
+  "providers_used": [
+    "local"
+  ],
+  "repair_action_counts": {
+    "ACCEPT_WITH_MONITORING": 1,
+    "R4_ROUTE_TO_HUMAN_REVIEW": 1,
+    "R8_FLAG_DATA_PIPELINE_DRIFT": 1
+  },
+  "risk_level_counts": {
+    "critical": 1,
+    "high": 2
+  },
+  "sample_outputs": [
+    {
+      "case_id": "m15d_safe_case",
+      "external_provider_enabled": false,
+      "failure_explanation": "No named reliability failures were detected by the local reliability agent.",
+      "human_review_note": "Sample m15d_safe_case should be handled with action ACCEPT_WITH_MONITORING (Accept with monitoring). Trust score: 0.91. Detected failure IDs: none. Reason: No high-severity reliability failures were detected.",
+      "limitations": [
+        "Default provider-aware agent path is local and deterministic.",
+        "External LLM providers are optional and disabled by default.",
+        "Provider output explains reliability decisions but does not override safety routing.",
+        "No production safety certification or live cloud deployment is claimed."
+      ],
+      "local_analysis": {
+        "agent_mode": "deterministic_local_fallback",
+        "agent_name": "failsafemlx_reliability_agent",
+        "case": {
+          "calibration_error": 0.02,
+          "domain": "healthcare_risk",
+          "drift_score": 0.05,
+          "failure_ids": [],
+          "ood_score": 0.03,
+          "prediction": "approve_low_risk",
+          "sample_id": "m15d_safe_case",
+          "trust_score": 0.91,
+          "uncertainty": 0.08
+        },
+        "drift_ood_summary": {
+          "combined_risk": 0.05,
+          "drift_score": 0.05,
+          "ood_score": 0.03,
+          "recommended_drift_action": "no_drift_action",
+          "severity": "low"
+        },
+        "failure_explanations": [],
+        "human_review_note": "Sample m15d_safe_case should be handled with action ACCEPT_WITH_MONITORING (Accept with monitoring). Trust score: 0.91. Detected failure IDs: none. Reason: No high-severity reliability failures were detected.",
+        "limitations": [
+          "Default mode is deterministic and does not call external LLM APIs.",
+          "LangGraph/LangChain are optional integration targets, not required runtime dependencies.",
+          "Agent recommendations support reliability review and do not certify production safety."
+        ],
+        "optional_integrations": {
+          "langchain_available": false,
+          "langgraph_available": false
+        },
+        "project": "FailSafeML-X",
+        "recommended_action": {
+          "action_id": "ACCEPT_WITH_MONITORING",
+          "auto_decision_allowed": true,
+          "decision": "accept",
+          "label": "Accept with monitoring",
+          "reason": "No high-severity reliability failures were detected."
+        },
+        "trust_summary": {
+          "default_decision": "accept",
+          "explanation": "Trust score is high enough for low-risk automation if no critical failures are present.",
+          "trust_band": "high",
+          "trust_score": 0.91
+        }
+      },
+      "milestone": "M15D_PROVIDER_AWARE_AGENT_INTEGRATION",
+      "project": "FailSafeML-X",
+      "provider_explanation": "Local reliability explanation: FailSafeML-X analyzed the reliability envelope without calling an external LLM provider. Review the failure IDs, trust score, drift/OOD indicators, repair action, and human-review routing before allowing automation. Input summary: Summarize this FailSafeML-X reliability analysis for an ML reviewer. Keep the explanation concise and do not override guardrail or human-review decisions. { \"case\": { \"calibration_error\": 0.02, \"domain\": \"healthcare_risk\", \"drift_score\": 0.05, \"failure_ids\": [], \"ood_score\": 0.03, \"prediction\": \"approve_low_risk\", \"sample_id\": \"m15d_safe_case\", \"trust_score\": 0.91, \"uncertainty\": 0.08 }, \"drift_ood_summary\": { \"combined_risk\": 0.05, \"drift_score\": 0.05, \"ood_score\": 0.03, \"recommended_drift_a...",
+      "provider_metadata": {
+        "fallback_reason": null,
+        "model": "local-deterministic-reliability-explainer",
+        "provider": "local",
+        "raw_provider": "deterministic_local_fallback",
+        "usage": {
+          "prompt_chars": 1103,
+          "response_chars": 762
+        },
+        "used_external_api": false
+      },
+      "provider_requested": "local",
+      "provider_used": "local",
+      "repair_recommendation": {
+        "action_id": "ACCEPT_WITH_MONITORING",
+        "auto_decision_allowed": true,
+        "decision": "accept",
+        "label": "Accept with monitoring",
+        "reason": "No high-severity reliability failures were detected."
+      },
+      "risk_summary": {
+        "critical_failure_count": 0,
+        "drift_ood_severity": "low",
+        "high_failure_count": 0,
+        "medium_failure_count": 0,
+        "recommended_action_id": "ACCEPT_WITH_MONITORING",
+        "recommended_decision": "accept",
+        "risk_level": "high",
+        "trust_band": "high",
+        "trust_score": 0.91
+      },
+      "used_external_api": false,
+      "warnings": []
+    },
+    {
+      "case_id": "m15d_drift_case",
+      "external_provider_enabled": false,
+      "failure_explanation": "F1_DATA_DRIFT (high): Current feature distribution differs from the reference/training distribution. | F7_CALIBRATION_FAILURE (high): Predicted probabilities do not align well with empirical outcome frequencies.",
+      "human_review_note": "Sample m15d_drift_case should be handled with action R8_FLAG_DATA_PIPELINE_DRIFT (Flag data pipeline drift). Trust score: 0.52. Detected failure IDs: F1_DATA_DRIFT, F7_CALIBRATION_FAILURE. Reason: Drift risk is high enough to flag the input/data pipeline before automation.",
+      "limitations": [
+        "Default provider-aware agent path is local and deterministic.",
+        "External LLM providers are optional and disabled by default.",
+        "Provider output explains reliability decisions but does not override safety routing.",
+        "No production safety certification or live cloud deployment is claimed."
+      ],
+      "local_analysis": {
+        "agent_mode": "deterministic_local_fallback",
+        "agent_name": "failsafemlx_reliability_agent",
+        "case": {
+          "calibration_error": 0.18,
+          "domain": "healthcare_risk",
+          "drift_score": 0.73,
+          "failure_ids": [
+            "F1_DATA_DRIFT",
+            "F7_CALIBRATION_FAILURE"
+          ],
+          "ood_score": 0.27,
+          "prediction": "approve_high_risk",
+          "sample_id": "m15d_drift_case",
+          "trust_score": 0.52,
+          "uncertainty": 0.48
+        },
+        "drift_ood_summary": {
+          "combined_risk": 0.73,
+          "drift_score": 0.73,
+          "ood_score": 0.27,
+          "recommended_drift_action": "flag_drift",
+          "severity": "high"
+        },
+        "failure_explanations": [
+          {
+            "description": "Current feature distribution differs from the reference/training distribution.",
+            "failure_id": "F1_DATA_DRIFT",
+            "name": "Data drift",
+            "primary_repair": "R8_FLAG_DATA_PIPELINE_DRIFT",
+            "severity": "high"
+          },
+          {
+            "description": "Predicted probabilities do not align well with empirical outcome frequencies.",
+            "failure_id": "F7_CALIBRATION_FAILURE",
+            "name": "Calibration failure",
+            "primary_repair": "R1_RECALIBRATE_MODEL",
+            "severity": "high"
+          }
+        ],
+        "human_review_note": "Sample m15d_drift_case should be handled with action R8_FLAG_DATA_PIPELINE_DRIFT (Flag data pipeline drift). Trust score: 0.52. Detected failure IDs: F1_DATA_DRIFT, F7_CALIBRATION_FAILURE. Reason: Drift risk is high enough to flag the input/data pipeline before automation.",
+        "limitations": [
+          "Default mode is deterministic and does not call external LLM APIs.",
+          "LangGraph/LangChain are optional integration targets, not required runtime dependencies.",
+          "Agent recommendations support reliability review and do not certify production safety."
+        ],
+        "optional_integrations": {
+          "langchain_available": false,
+          "langgraph_available": false
+        },
+        "project": "FailSafeML-X",
+        "recommended_action": {
+          "action_id": "R8_FLAG_DATA_PIPELINE_DRIFT",
+          "auto_decision_allowed": false,
+          "decision": "flag_drift",
+          "label": "Flag data pipeline drift",
+          "reason": "Drift risk is high enough to flag the input/data pipeline before automation."
+        },
+        "trust_summary": {
+          "default_decision": "abstain",
+          "explanation": "Trust score is weak; automatic decisioning should be avoided.",
+          "trust_band": "low",
+          "trust_score": 0.52
+        }
+      },
+      "milestone": "M15D_PROVIDER_AWARE_AGENT_INTEGRATION",
+      "project": "FailSafeML-X",
+      "provider_explanation": "Local reliability explanation: FailSafeML-X analyzed the reliability envelope without calling an external LLM provider. Review the failure IDs, trust score, drift/OOD indicators, repair action, and human-review routing before allowing automation. Input summary: Summarize this FailSafeML-X reliability analysis for an ML reviewer. Keep the explanation concise and do not override guardrail or human-review decisions. { \"case\": { \"calibration_error\": 0.18, \"domain\": \"healthcare_risk\", \"drift_score\": 0.73, \"failure_ids\": [ \"F1_DATA_DRIFT\", \"F7_CALIBRATION_FAILURE\" ], \"ood_score\": 0.27, \"prediction\": \"approve_high_risk\", \"sample_id\": \"m15d_drift_case\", \"trust_score\": 0.52, \"uncertainty\": 0.48 }, \"drift_ood_summary\": { \"combined_risk\": 0.73, \"drift_score\": ...",
+      "provider_metadata": {
+        "fallback_reason": null,
+        "model": "local-deterministic-reliability-explainer",
+        "provider": "local",
+        "raw_provider": "deterministic_local_fallback",
+        "usage": {
+          "prompt_chars": 1704,
+          "response_chars": 762
+        },
+        "used_external_api": false
+      },
+      "provider_requested": "local",
+      "provider_used": "local",
+      "repair_recommendation": {
+        "action_id": "R8_FLAG_DATA_PIPELINE_DRIFT",
+        "auto_decision_allowed": false,
+        "decision": "flag_drift",
+        "label": "Flag data pipeline drift",
+        "reason": "Drift risk is high enough to flag the input/data pipeline before automation."
+      },
+      "risk_summary": {
+        "critical_failure_count": 0,
+        "drift_ood_severity": "high",
+        "high_failure_count": 2,
+        "medium_failure_count": 0,
+        "recommended_action_id": "R8_FLAG_DATA_PIPELINE_DRIFT",
+        "recommended_decision": "flag_drift",
+        "risk_level": "high",
+        "trust_band": "low",
+        "trust_score": 0.52
+      },
+      "used_external_api": false,
+      "warnings": []
+    },
+    {
+      "case_id": "m15d_critical_case",
+      "external_provider_enabled": false,
+      "failure_explanation": "F4_OUT_OF_DISTRIBUTION_INPUT (critical): The input appears far from the model's known reference distribution. | F10_UNSAFE_AUTO_DECISION (critical): The case is too risky for automatic action under the current reliability envelope.",
+      "human_review_note": "Sample m15d_critical_case should be handled with action R4_ROUTE_TO_HUMAN_REVIEW (Route to human review). Trust score: 0.31. Detected failure IDs: F4_OUT_OF_DISTRIBUTION_INPUT, F10_UNSAFE_AUTO_DECISION. Reason: Critical safety/OOD/low-trust condition blocks automatic decisioning.",
+      "limitations": [
+        "Default provider-aware agent path is local and deterministic.",
+        "External LLM providers are optional and disabled by default.",
+        "Provider output explains reliability decisions but does not override safety routing.",
+        "No production safety certification or live cloud deployment is claimed."
+      ],
+      "local_analysis": {
+        "agent_mode": "deterministic_local_fallback",
+        "agent_name": "failsafemlx_reliability_agent",
+        "case": {
+          "calibration_error": 0.16,
+          "domain": "energy_timeseries",
+          "drift_score": 0.62,
+          "failure_ids": [
+            "F4_OUT_OF_DISTRIBUTION_INPUT",
+            "F10_UNSAFE_AUTO_DECISION"
+          ],
+          "ood_score": 0.91,
+          "prediction": "auto_decision_requested",
+          "sample_id": "m15d_critical_case",
+          "trust_score": 0.31,
+          "uncertainty": 0.81
+        },
+        "drift_ood_summary": {
+          "combined_risk": 0.91,
+          "drift_score": 0.62,
+          "ood_score": 0.91,
+          "recommended_drift_action": "human_review",
+          "severity": "critical"
+        },
+        "failure_explanations": [
+          {
+            "description": "The input appears far from the model's known reference distribution.",
+            "failure_id": "F4_OUT_OF_DISTRIBUTION_INPUT",
+            "name": "Out-of-distribution input",
+            "primary_repair": "R4_ROUTE_TO_HUMAN_REVIEW",
+            "severity": "critical"
+          },
+          {
+            "description": "The case is too risky for automatic action under the current reliability envelope.",
+            "failure_id": "F10_UNSAFE_AUTO_DECISION",
+            "name": "Unsafe automatic decision",
+            "primary_repair": "R4_ROUTE_TO_HUMAN_REVIEW",
+            "severity": "critical"
+          }
+        ],
+        "human_review_note": "Sample m15d_critical_case should be handled with action R4_ROUTE_TO_HUMAN_REVIEW (Route to human review). Trust score: 0.31. Detected failure IDs: F4_OUT_OF_DISTRIBUTION_INPUT, F10_UNSAFE_AUTO_DECISION. Reason: Critical safety/OOD/low-trust condition blocks automatic decisioning.",
+        "limitations": [
+          "Default mode is deterministic and does not call external LLM APIs.",
+          "LangGraph/LangChain are optional integration targets, not required runtime dependencies.",
+          "Agent recommendations support reliability review and do not certify production safety."
+        ],
+        "optional_integrations": {
+          "langchain_available": false,
+          "langgraph_available": false
+        },
+        "project": "FailSafeML-X",
+        "recommended_action": {
+          "action_id": "R4_ROUTE_TO_HUMAN_REVIEW",
+          "auto_decision_allowed": false,
+          "decision": "human_review",
+          "label": "Route to human review",
+          "reason": "Critical safety/OOD/low-trust condition blocks automatic decisioning."
+        },
+        "trust_summary": {
+          "default_decision": "human_review",
+          "explanation": "Trust score is too low for automatic decisioning.",
+          "trust_band": "very_low",
+          "trust_score": 0.31
+        }
+      },
+      "milestone": "M15D_PROVIDER_AWARE_AGENT_INTEGRATION",
+      "project": "FailSafeML-X",
+      "provider_explanation": "Local reliability explanation: FailSafeML-X analyzed the reliability envelope without calling an external LLM provider. Review the failure IDs, trust score, drift/OOD indicators, repair action, and human-review routing before allowing automation. Input summary: Summarize this FailSafeML-X reliability analysis for an ML reviewer. Keep the explanation concise and do not override guardrail or human-review decisions. { \"case\": { \"calibration_error\": 0.16, \"domain\": \"energy_timeseries\", \"drift_score\": 0.62, \"failure_ids\": [ \"F4_OUT_OF_DISTRIBUTION_INPUT\", \"F10_UNSAFE_AUTO_DECISION\" ], \"ood_score\": 0.91, \"prediction\": \"auto_decision_requested\", \"sample_id\": \"m15d_critical_case\", \"trust_score\": 0.31, \"uncertainty\": 0.81 }, \"drift_ood_summary\": { \"combined_...",
+      "provider_metadata": {
+        "fallback_reason": null,
+        "model": "local-deterministic-reliability-explainer",
+        "provider": "local",
+        "raw_provider": "deterministic_local_fallback",
+        "usage": {
+          "prompt_chars": 1767,
+          "response_chars": 762
+        },
+        "used_external_api": false
+      },
+      "provider_requested": "local",
+      "provider_used": "local",
+      "repair_recommendation": {
+        "action_id": "R4_ROUTE_TO_HUMAN_REVIEW",
+        "auto_decision_allowed": false,
+        "decision": "human_review",
+        "label": "Route to human review",
+        "reason": "Critical safety/OOD/low-trust condition blocks automatic decisioning."
+      },
+      "risk_summary": {
+        "critical_failure_count": 2,
+        "drift_ood_severity": "critical",
+        "high_failure_count": 0,
+        "medium_failure_count": 0,
+        "recommended_action_id": "R4_ROUTE_TO_HUMAN_REVIEW",
+        "recommended_decision": "human_review",
+        "risk_level": "critical",
+        "trust_band": "very_low",
+        "trust_score": 0.31
+      },
+      "used_external_api": false,
+      "warnings": []
+    }
+  ],
+  "status": "completed",
+  "warnings": [
+    "External providers are adapter-ready but disabled by default.",
+    "Provider-aware explanations are advisory and do not override reliability routing."
+  ]
+}

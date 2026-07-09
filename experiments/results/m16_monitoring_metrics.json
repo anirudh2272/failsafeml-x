@@ -1,0 +1,99 @@
+{
+  "milestone": "M16_MONITORING_METRICS_EXPORT",
+  "passed": true,
+  "metric_count": 11,
+  "metrics": [
+    {
+      "name": "failsafemlx_unsafe_auto_decision_rate",
+      "value": 0.0,
+      "help": "Fraction of high-risk predictions that were incorrectly auto-accepted.",
+      "type": "gauge"
+    },
+    {
+      "name": "failsafemlx_average_trust_score",
+      "value": 0.58,
+      "help": "Average reliability trust score across audited cases.",
+      "type": "gauge"
+    },
+    {
+      "name": "failsafemlx_drift_warning_count",
+      "value": 0.0,
+      "help": "Count of drift-related warnings.",
+      "type": "gauge"
+    },
+    {
+      "name": "failsafemlx_ood_warning_count",
+      "value": 0.0,
+      "help": "Count of out-of-distribution warnings.",
+      "type": "gauge"
+    },
+    {
+      "name": "failsafemlx_human_review_rate",
+      "value": 0.0,
+      "help": "Fraction of audited cases routed to human review.",
+      "type": "gauge"
+    },
+    {
+      "name": "failsafemlx_repair_action_count",
+      "value": 24.0,
+      "help": "Total recommended repair actions.",
+      "type": "gauge"
+    },
+    {
+      "name": "failsafemlx_provider_external_call_blocked_count",
+      "value": 1.0,
+      "help": "Whether external LLM providers were blocked by default in local validation.",
+      "type": "gauge"
+    },
+    {
+      "name": "failsafemlx_provider_external_api_call_used_count",
+      "value": 0.0,
+      "help": "Whether external API calls were used during local validation.",
+      "type": "gauge"
+    },
+    {
+      "name": "failsafemlx_dataset_validation_error_count",
+      "value": 0.0,
+      "help": "Dataset validation errors detected before reliability evaluation.",
+      "type": "gauge"
+    },
+    {
+      "name": "failsafemlx_dataset_validation_warning_count",
+      "value": 0.0,
+      "help": "Dataset validation warnings detected before reliability evaluation.",
+      "type": "gauge"
+    },
+    {
+      "name": "failsafemlx_rag_failure_count",
+      "value": 21.0,
+      "help": "Total RAG/provider reliability failures detected.",
+      "type": "gauge"
+    }
+  ],
+  "alert_recommendations": [
+    {
+      "alert_id": "ALERT_LOW_AVERAGE_TRUST_SCORE",
+      "severity": "HIGH",
+      "metric": "failsafemlx_average_trust_score",
+      "condition": "< 0.60",
+      "recommendation": "Review failure taxonomy outputs and inspect drift/OOD or RAG evidence quality before expanding automation."
+    },
+    {
+      "alert_id": "ALERT_RAG_RELIABILITY_FAILURES",
+      "severity": "MEDIUM",
+      "metric": "failsafemlx_rag_failure_count",
+      "condition": "> 3",
+      "recommendation": "Filter stale or untrusted context, require citations, and rerun retrieval repair checks."
+    }
+  ],
+  "artifacts": {
+    "prometheus_metrics": "monitoring/prometheus_metrics_example.txt",
+    "grafana_dashboard_spec": "monitoring/grafana_dashboard_spec.json",
+    "report": "reports/milestone_16_monitoring_metrics.md"
+  },
+  "honest_limitations": [
+    "Prometheus and Grafana were not started during local CI.",
+    "The dashboard JSON is a template suitable for later import, not evidence of live monitoring.",
+    "Alert thresholds are demonstration defaults and must be tuned for production use."
+  ]
+}

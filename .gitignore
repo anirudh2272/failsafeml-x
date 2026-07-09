@@ -9,6 +9,5 @@ mlruns/
 *.sqlite
 *.db
 
-# Local AI/editor config
 .agents/
 .claude/

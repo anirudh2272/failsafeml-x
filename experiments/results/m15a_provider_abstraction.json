@@ -1,0 +1,47 @@
+{
+  "created_at_utc": "2026-07-09T00:24:04.754652+00:00",
+  "default_provider": "local",
+  "external_api_calls_in_tests": false,
+  "external_provider_default_behavior": {
+    "bedrock": "blocked_by_default",
+    "openai_compatible": "blocked_by_default"
+  },
+  "honest_claim": "Added an optional provider abstraction for local deterministic, OpenAI-compatible, and AWS Bedrock Converse-style reliability explanations. External providers are disabled by default and were not called during tests.",
+  "limitations": [
+    "No API keys are required for local CI.",
+    "OpenAI-compatible and Bedrock adapters are opt-in and require user-supplied credentials/configuration.",
+    "This milestone adds provider abstraction, not production LLMOps or hosted cloud deployment."
+  ],
+  "milestone": "M15A_OPTIONAL_LLM_PROVIDER_ABSTRACTION",
+  "missing_files": [],
+  "passed": true,
+  "project": "FailSafeML-X",
+  "providers_supported": [
+    "local",
+    "openai_compatible",
+    "bedrock"
+  ],
+  "required_files_checked": [
+    "src/failsafemlx/providers/base.py",
+    "src/failsafemlx/providers/local.py",
+    "src/failsafemlx/providers/openai_compatible.py",
+    "src/failsafemlx/providers/bedrock.py",
+    "src/failsafemlx/providers/router.py",
+    "src/failsafemlx/providers/schemas.py",
+    "requirements-providers.txt",
+    "docs/provider_abstraction.md"
+  ],
+  "sample_local_response": {
+    "model": "local-deterministic-reliability-explainer",
+    "provider": "local",
+    "raw_provider": "deterministic_local_fallback",
+    "text": "Local reliability explanation: FailSafeML-X analyzed the reliability envelope without calling an external LLM provider. Review the failure IDs, trust score, drift/OOD indicators, repair action, and human-review routing before allowing automation. Input summary: Summarize this FailSafeML-X reliability analysis for an ML reviewer. Keep the explanation concise and do not override guardrail or human-review decisions. { \"case\": { \"calibration_error\": 0.18, \"domain\": \"synthetic_healthcare_risk\", \"drift_score\": 0.66, \"failure_ids\": [ \"F4_OUT_OF_DISTRIBUTION_INPUT\", \"F10_UNSAFE_AUTO_DECISION\" ], \"ood_score\": 0.83, \"prediction\": 1, \"sample_id\": \"m15a_provider_demo_001\", \"trust_score\": 0.37, \"uncertainty\": 0.72 }, \"drift_ood_summary\": { \"combined_risk\": 0.83,...",
+    "usage": {
+      "prompt_chars": 1755,
+      "response_chars": 762
+    },
+    "used_external_api": false,
+    "warnings": []
+  },
+  "status": "completed"
+}

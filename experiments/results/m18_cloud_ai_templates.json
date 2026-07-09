@@ -1,0 +1,63 @@
+{
+  "milestone": "M18_CLOUD_AI_TEMPLATES",
+  "passed": true,
+  "checked_files": [
+    "cloud/aws/sagemaker/README.md",
+    "cloud/aws/sagemaker/inference.py",
+    "cloud/aws/sagemaker/model.tar.gz.placeholder.md",
+    "cloud/gcp/vertex_ai/README.md",
+    "cloud/gcp/vertex_ai/predictor.py",
+    "docs/managed_cloud_ai.md"
+  ],
+  "required_files": [
+    "cloud/aws/sagemaker/README.md",
+    "cloud/aws/sagemaker/inference.py",
+    "cloud/aws/sagemaker/model.tar.gz.placeholder.md",
+    "cloud/gcp/vertex_ai/README.md",
+    "cloud/gcp/vertex_ai/predictor.py",
+    "docs/managed_cloud_ai.md"
+  ],
+  "template_exercises": [
+    {
+      "target": "aws_sagemaker",
+      "entrypoints_present": true,
+      "trust_score": 85,
+      "routing_decision": "ACCEPT",
+      "external_calls_performed": false,
+      "has_failure_for_missing_features": true
+    },
+    {
+      "target": "gcp_vertex_ai",
+      "entrypoint_present": true,
+      "trust_score": 85,
+      "routing_decision": "ACCEPT",
+      "external_calls_performed": false,
+      "has_failure_for_missing_features": true
+    }
+  ],
+  "template_summary": {
+    "aws_sagemaker_template": true,
+    "gcp_vertex_ai_template": true,
+    "cloud_sdks_required_for_tests": false,
+    "cloud_credentials_required_for_tests": false,
+    "live_cloud_deployment_performed": false,
+    "external_provider_default": "local/offline",
+    "external_llm_default_enabled": false,
+    "external_vector_db_default_enabled": false
+  },
+  "errors": [],
+  "warnings": [],
+  "honest_limitations": [
+    "This milestone provides managed cloud inference templates only.",
+    "No SageMaker endpoint, Vertex AI endpoint, IAM role, service account, image registry, or cloud resource is created.",
+    "No model artifact is uploaded or downloaded during tests.",
+    "Production use requires model packaging, cloud security review, authentication, logging, monitoring, and cost controls."
+  ],
+  "artifacts": {
+    "result": "experiments/results/m18_cloud_ai_templates.json",
+    "report": "reports/milestone_18_cloud_ai_templates.md",
+    "docs": "docs/managed_cloud_ai.md",
+    "aws_template": "cloud/aws/sagemaker/inference.py",
+    "gcp_template": "cloud/gcp/vertex_ai/predictor.py"
+  }
+}

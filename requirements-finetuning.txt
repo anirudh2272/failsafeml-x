@@ -1,0 +1,10 @@
+# Optional fine-tuning dependencies for FailSafeML-X M19.
+# These are not required for normal tests or local CI.
+# Install only when intentionally running real LoRA/PEFT training outside CI.
+
+torch
+transformers
+datasets
+peft
+accelerate
+trl

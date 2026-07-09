@@ -1,0 +1,50 @@
+{
+  "created_at_utc": "2026-07-09T00:23:53.569112+00:00",
+  "dag_validation": {
+    "airflow_required_for_validation": false,
+    "dag_id": "failsafeml_nightly_reliability",
+    "dag_path": "infra/airflow/dags/failsafeml_nightly_reliability_dag.py",
+    "errors": [],
+    "passed": true,
+    "task_count": 10,
+    "task_ids_found": [
+      "run_m1_baseline",
+      "run_m2_uncertainty_calibration",
+      "run_m3_drift_ood",
+      "run_m4_failure_taxonomy",
+      "run_m5_repair_engine",
+      "run_m6_rl_router",
+      "run_m7_api_dashboard_demo",
+      "run_m8_final_packaging",
+      "run_m9_cicd_software_quality",
+      "run_m10_agentic_reliability"
+    ],
+    "tasks_expected": [
+      "run_m1_baseline",
+      "run_m2_uncertainty_calibration",
+      "run_m3_drift_ood",
+      "run_m4_failure_taxonomy",
+      "run_m5_repair_engine",
+      "run_m6_rl_router",
+      "run_m7_api_dashboard_demo",
+      "run_m8_final_packaging",
+      "run_m9_cicd_software_quality",
+      "run_m10_agentic_reliability"
+    ],
+    "warnings": []
+  },
+  "errors": [],
+  "generated_outputs": [
+    "experiments/results/m11_airflow_orchestration.json",
+    "reports/milestone_11_airflow_orchestration.md"
+  ],
+  "honest_claim": "Added optional Apache Airflow DAG orchestration for scheduled ML reliability benchmarking, repair evaluation, and artifact generation. No production Airflow deployment is claimed.",
+  "milestone": "M11_AIRFLOW_ORCHESTRATION",
+  "missing_required_paths": [],
+  "next_milestone": "M12_SPARK_DISTRIBUTED_DRIFT_PIPELINE",
+  "passed": true,
+  "project": "FailSafeML-X",
+  "required_paths_checked": 7,
+  "status": "completed",
+  "warnings": []
+}

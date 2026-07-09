@@ -1,0 +1,176 @@
+{
+  "created_at_utc": "2026-07-09T00:24:04.935310+00:00",
+  "drift_analysis": {
+    "claim_scope": "PySpark-compatible interface with local fallback; no Databricks deployment claimed.",
+    "engine": "local_pandas_numpy_fallback",
+    "feature_count": 8,
+    "feature_summaries": [
+      {
+        "current_mean": 0.675897,
+        "current_std": 0.981892,
+        "feature": "feature_0",
+        "mean_shift": 0.708108,
+        "psi": 0.478323,
+        "reference_mean": -0.017557,
+        "reference_std": 0.979306,
+        "severity": "high",
+        "std_shift": 0.00264
+      },
+      {
+        "current_mean": 0.359276,
+        "current_std": 1.30484,
+        "feature": "feature_1",
+        "mean_shift": 0.329922,
+        "psi": 0.187396,
+        "reference_mean": 0.030773,
+        "reference_std": 0.995696,
+        "severity": "moderate",
+        "std_shift": 0.310481
+      },
+      {
+        "current_mean": 0.197706,
+        "current_std": 1.020075,
+        "feature": "feature_2",
+        "mean_shift": 0.198658,
+        "psi": 0.047255,
+        "reference_mean": -0.000107,
+        "reference_std": 0.995746,
+        "severity": "stable",
+        "std_shift": 0.024433
+      },
+      {
+        "current_mean": 0.051163,
+        "current_std": 0.984883,
+        "feature": "feature_5",
+        "mean_shift": 0.039164,
+        "psi": 0.016204,
+        "reference_mean": 0.010818,
+        "reference_std": 1.030124,
+        "severity": "stable",
+        "std_shift": 0.043918
+      },
+      {
+        "current_mean": -0.001128,
+        "current_std": 0.989825,
+        "feature": "feature_4",
+        "mean_shift": 0.006305,
+        "psi": 0.010235,
+        "reference_mean": -0.007319,
+        "reference_std": 0.982042,
+        "severity": "stable",
+        "std_shift": 0.007926
+      },
+      {
+        "current_mean": 0.012824,
+        "current_std": 1.005543,
+        "feature": "feature_3",
+        "mean_shift": 0.070673,
+        "psi": 0.009753,
+        "reference_mean": -0.059732,
+        "reference_std": 1.026647,
+        "severity": "stable",
+        "std_shift": 0.020556
+      },
+      {
+        "current_mean": 0.04309,
+        "current_std": 1.023151,
+        "feature": "feature_7",
+        "mean_shift": 0.058185,
+        "psi": 0.009536,
+        "reference_mean": -0.01722,
+        "reference_std": 1.036515,
+        "severity": "stable",
+        "std_shift": 0.012893
+      },
+      {
+        "current_mean": 0.013889,
+        "current_std": 0.992429,
+        "feature": "feature_6",
+        "mean_shift": 0.047292,
+        "psi": 0.007015,
+        "reference_mean": -0.032928,
+        "reference_std": 0.989941,
+        "severity": "stable",
+        "std_shift": 0.002513
+      }
+    ],
+    "max_psi": 0.478323,
+    "mean_psi": 0.095715,
+    "overall_severity": "high",
+    "row_count_current": 1500,
+    "row_count_reference": 1500,
+    "spark_available": false,
+    "spark_execution_mode": "pandas_input_adapter",
+    "top_drifted_features": [
+      {
+        "current_mean": 0.675897,
+        "current_std": 0.981892,
+        "feature": "feature_0",
+        "mean_shift": 0.708108,
+        "psi": 0.478323,
+        "reference_mean": -0.017557,
+        "reference_std": 0.979306,
+        "severity": "high",
+        "std_shift": 0.00264
+      },
+      {
+        "current_mean": 0.359276,
+        "current_std": 1.30484,
+        "feature": "feature_1",
+        "mean_shift": 0.329922,
+        "psi": 0.187396,
+        "reference_mean": 0.030773,
+        "reference_std": 0.995696,
+        "severity": "moderate",
+        "std_shift": 0.310481
+      },
+      {
+        "current_mean": 0.197706,
+        "current_std": 1.020075,
+        "feature": "feature_2",
+        "mean_shift": 0.198658,
+        "psi": 0.047255,
+        "reference_mean": -0.000107,
+        "reference_std": 0.995746,
+        "severity": "stable",
+        "std_shift": 0.024433
+      },
+      {
+        "current_mean": 0.051163,
+        "current_std": 0.984883,
+        "feature": "feature_5",
+        "mean_shift": 0.039164,
+        "psi": 0.016204,
+        "reference_mean": 0.010818,
+        "reference_std": 1.030124,
+        "severity": "stable",
+        "std_shift": 0.043918
+      },
+      {
+        "current_mean": -0.001128,
+        "current_std": 0.989825,
+        "feature": "feature_4",
+        "mean_shift": 0.006305,
+        "psi": 0.010235,
+        "reference_mean": -0.007319,
+        "reference_std": 0.982042,
+        "severity": "stable",
+        "std_shift": 0.007926
+      }
+    ]
+  },
+  "errors": [],
+  "generated_outputs": [
+    "experiments/results/m12_spark_drift_pipeline.json",
+    "reports/milestone_12_spark_drift_pipeline.md"
+  ],
+  "honest_claim": "Added PySpark-compatible distributed drift analysis with local fallback for large-batch feature monitoring and Databricks-style workflow documentation. No live Databricks deployment is claimed.",
+  "milestone": "M12_SPARK_DISTRIBUTED_DRIFT_PIPELINE",
+  "missing_required_paths": [],
+  "next_milestone": "M13_AI_SECURITY_GUARDRAILS",
+  "passed": true,
+  "project": "FailSafeML-X",
+  "required_paths_checked": 8,
+  "status": "completed",
+  "warnings": []
+}

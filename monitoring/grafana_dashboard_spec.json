@@ -1,0 +1,222 @@
+{
+  "title": "FailSafeML-X Reliability Monitoring",
+  "schemaVersion": 39,
+  "version": 1,
+  "refresh": "30s",
+  "tags": [
+    "failsafeml-x",
+    "ml-reliability",
+    "local-template"
+  ],
+  "panels": [
+    {
+      "id": 1,
+      "title": "failsafemlx_unsafe_auto_decision_rate",
+      "type": "stat",
+      "targets": [
+        {
+          "expr": "failsafemlx_unsafe_auto_decision_rate",
+          "legendFormat": "failsafemlx_unsafe_auto_decision_rate"
+        }
+      ],
+      "description": "Fraction of high-risk predictions that were incorrectly auto-accepted.",
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "id": 2,
+      "title": "failsafemlx_average_trust_score",
+      "type": "stat",
+      "targets": [
+        {
+          "expr": "failsafemlx_average_trust_score",
+          "legendFormat": "failsafemlx_average_trust_score"
+        }
+      ],
+      "description": "Average reliability trust score across audited cases.",
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 6,
+        "y": 0
+      }
+    },
+    {
+      "id": 3,
+      "title": "failsafemlx_drift_warning_count",
+      "type": "stat",
+      "targets": [
+        {
+          "expr": "failsafemlx_drift_warning_count",
+          "legendFormat": "failsafemlx_drift_warning_count"
+        }
+      ],
+      "description": "Count of drift-related warnings.",
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 12,
+        "y": 0
+      }
+    },
+    {
+      "id": 4,
+      "title": "failsafemlx_ood_warning_count",
+      "type": "stat",
+      "targets": [
+        {
+          "expr": "failsafemlx_ood_warning_count",
+          "legendFormat": "failsafemlx_ood_warning_count"
+        }
+      ],
+      "description": "Count of out-of-distribution warnings.",
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 18,
+        "y": 0
+      }
+    },
+    {
+      "id": 5,
+      "title": "failsafemlx_human_review_rate",
+      "type": "stat",
+      "targets": [
+        {
+          "expr": "failsafemlx_human_review_rate",
+          "legendFormat": "failsafemlx_human_review_rate"
+        }
+      ],
+      "description": "Fraction of audited cases routed to human review.",
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 0,
+        "y": 4
+      }
+    },
+    {
+      "id": 6,
+      "title": "failsafemlx_repair_action_count",
+      "type": "stat",
+      "targets": [
+        {
+          "expr": "failsafemlx_repair_action_count",
+          "legendFormat": "failsafemlx_repair_action_count"
+        }
+      ],
+      "description": "Total recommended repair actions.",
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 6,
+        "y": 4
+      }
+    },
+    {
+      "id": 7,
+      "title": "failsafemlx_provider_external_call_blocked_count",
+      "type": "stat",
+      "targets": [
+        {
+          "expr": "failsafemlx_provider_external_call_blocked_count",
+          "legendFormat": "failsafemlx_provider_external_call_blocked_count"
+        }
+      ],
+      "description": "Whether external LLM providers were blocked by default in local validation.",
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 12,
+        "y": 4
+      }
+    },
+    {
+      "id": 8,
+      "title": "failsafemlx_provider_external_api_call_used_count",
+      "type": "stat",
+      "targets": [
+        {
+          "expr": "failsafemlx_provider_external_api_call_used_count",
+          "legendFormat": "failsafemlx_provider_external_api_call_used_count"
+        }
+      ],
+      "description": "Whether external API calls were used during local validation.",
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 18,
+        "y": 4
+      }
+    },
+    {
+      "id": 9,
+      "title": "failsafemlx_dataset_validation_error_count",
+      "type": "stat",
+      "targets": [
+        {
+          "expr": "failsafemlx_dataset_validation_error_count",
+          "legendFormat": "failsafemlx_dataset_validation_error_count"
+        }
+      ],
+      "description": "Dataset validation errors detected before reliability evaluation.",
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 0,
+        "y": 8
+      }
+    },
+    {
+      "id": 10,
+      "title": "failsafemlx_dataset_validation_warning_count",
+      "type": "stat",
+      "targets": [
+        {
+          "expr": "failsafemlx_dataset_validation_warning_count",
+          "legendFormat": "failsafemlx_dataset_validation_warning_count"
+        }
+      ],
+      "description": "Dataset validation warnings detected before reliability evaluation.",
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 6,
+        "y": 8
+      }
+    },
+    {
+      "id": 11,
+      "title": "failsafemlx_rag_failure_count",
+      "type": "stat",
+      "targets": [
+        {
+          "expr": "failsafemlx_rag_failure_count",
+          "legendFormat": "failsafemlx_rag_failure_count"
+        }
+      ],
+      "description": "Total RAG/provider reliability failures detected.",
+      "gridPos": {
+        "h": 4,
+        "w": 6,
+        "x": 12,
+        "y": 8
+      }
+    }
+  ],
+  "templating": {
+    "list": []
+  },
+  "annotations": {
+    "list": []
+  },
+  "timezone": "browser",
+  "honest_limitations": [
+    "Dashboard JSON is a template and was not deployed to a live Grafana server.",
+    "Metrics are generated from local milestone outputs, not a production Prometheus scrape target."
+  ]
+}

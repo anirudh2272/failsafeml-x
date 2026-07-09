@@ -1,0 +1,90 @@
+{
+  "created_at_utc": "2026-07-09T00:23:53.633890+00:00",
+  "dataset_count": 2,
+  "dataset_results": [
+    {
+      "column_count": 6,
+      "dataset_name": "healthcare_sample",
+      "dataset_path": "data/samples/healthcare_sample.csv",
+      "errors": [],
+      "passed": true,
+      "row_count": 10,
+      "schema_path": "data/schemas/healthcare_schema.json",
+      "summary": {
+        "columns": [
+          "patient_id",
+          "age",
+          "bmi",
+          "blood_pressure",
+          "glucose",
+          "risk_label"
+        ],
+        "duplicate_count": 0,
+        "leakage_columns": [],
+        "missing_columns": {},
+        "target_summary": {
+          "min_class_rate": 0.5,
+          "missing_count": 0,
+          "unique_values": [
+            "0",
+            "1"
+          ]
+        },
+        "timestamp_summary": {}
+      },
+      "warnings": []
+    },
+    {
+      "column_count": 5,
+      "dataset_name": "energy_sample",
+      "dataset_path": "data/samples/energy_sample.csv",
+      "errors": [],
+      "passed": true,
+      "row_count": 10,
+      "schema_path": "data/schemas/energy_schema.json",
+      "summary": {
+        "columns": [
+          "timestamp",
+          "temperature",
+          "humidity",
+          "wind_speed",
+          "demand"
+        ],
+        "duplicate_count": 0,
+        "leakage_columns": [],
+        "missing_columns": {},
+        "target_summary": {
+          "missing_count": 0,
+          "unique_values": [
+            "119.2",
+            "120.5",
+            "121.9",
+            "125.7",
+            "128.4",
+            "132.1",
+            "134.8",
+            "151.3",
+            "170.2",
+            "181.7"
+          ]
+        },
+        "timestamp_summary": {
+          "invalid_timestamp_count": 0,
+          "is_monotonic_increasing": true
+        }
+      },
+      "warnings": []
+    }
+  ],
+  "generated_outputs": [
+    "experiments/results/m15c_dataset_validation.json",
+    "reports/milestone_15c_dataset_validation.md"
+  ],
+  "honest_claim": "Added a lightweight dataset loader and validation layer for schema, missingness, duplicates, imbalance, leakage indicators, and time-series ordering checks before reliability evaluation.",
+  "milestone": "M15C_DATASET_LOADER_VALIDATOR",
+  "passed": true,
+  "project": "FailSafeML-X",
+  "total_errors": 0,
+  "total_warnings": 0,
+  "warning_categories": {}
+}

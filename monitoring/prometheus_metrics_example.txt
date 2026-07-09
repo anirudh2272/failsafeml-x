@@ -1,0 +1,33 @@
+# HELP failsafemlx_unsafe_auto_decision_rate Fraction of high-risk predictions that were incorrectly auto-accepted.
+# TYPE failsafemlx_unsafe_auto_decision_rate gauge
+failsafemlx_unsafe_auto_decision_rate 0
+# HELP failsafemlx_average_trust_score Average reliability trust score across audited cases.
+# TYPE failsafemlx_average_trust_score gauge
+failsafemlx_average_trust_score 0.58
+# HELP failsafemlx_drift_warning_count Count of drift-related warnings.
+# TYPE failsafemlx_drift_warning_count gauge
+failsafemlx_drift_warning_count 0
+# HELP failsafemlx_ood_warning_count Count of out-of-distribution warnings.
+# TYPE failsafemlx_ood_warning_count gauge
+failsafemlx_ood_warning_count 0
+# HELP failsafemlx_human_review_rate Fraction of audited cases routed to human review.
+# TYPE failsafemlx_human_review_rate gauge
+failsafemlx_human_review_rate 0
+# HELP failsafemlx_repair_action_count Total recommended repair actions.
+# TYPE failsafemlx_repair_action_count gauge
+failsafemlx_repair_action_count 24
+# HELP failsafemlx_provider_external_call_blocked_count Whether external LLM providers were blocked by default in local validation.
+# TYPE failsafemlx_provider_external_call_blocked_count gauge
+failsafemlx_provider_external_call_blocked_count 1
+# HELP failsafemlx_provider_external_api_call_used_count Whether external API calls were used during local validation.
+# TYPE failsafemlx_provider_external_api_call_used_count gauge
+failsafemlx_provider_external_api_call_used_count 0
+# HELP failsafemlx_dataset_validation_error_count Dataset validation errors detected before reliability evaluation.
+# TYPE failsafemlx_dataset_validation_error_count gauge
+failsafemlx_dataset_validation_error_count 0
+# HELP failsafemlx_dataset_validation_warning_count Dataset validation warnings detected before reliability evaluation.
+# TYPE failsafemlx_dataset_validation_warning_count gauge
+failsafemlx_dataset_validation_warning_count 0
+# HELP failsafemlx_rag_failure_count Total RAG/provider reliability failures detected.
+# TYPE failsafemlx_rag_failure_count gauge
+failsafemlx_rag_failure_count 21

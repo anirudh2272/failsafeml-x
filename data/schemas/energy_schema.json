@@ -1,0 +1,11 @@
+{
+  "dataset_name": "energy_sample",
+  "task_type": "time_series_regression",
+  "required_columns": ["timestamp", "temperature", "humidity", "wind_speed", "demand"],
+  "numeric_columns": ["temperature", "humidity", "wind_speed", "demand"],
+  "categorical_columns": [],
+  "target_column": "demand",
+  "timestamp_column": "timestamp",
+  "imbalance_threshold": 0.15,
+  "leakage_keywords": ["target_leak", "label_copy", "outcome_future", "future_result"]
+}

@@ -1,0 +1,218 @@
+{
+  "agent_mode": "deterministic_local_fallback",
+  "analyses": [
+    {
+      "agent_mode": "deterministic_local_fallback",
+      "agent_name": "failsafemlx_reliability_agent",
+      "case": {
+        "calibration_error": 0.18,
+        "domain": "healthcare_risk_classification",
+        "drift_score": 0.22,
+        "failure_ids": [
+          "F2_MODEL_OVERCONFIDENCE",
+          "F7_CALIBRATION_FAILURE",
+          "F10_UNSAFE_AUTO_DECISION"
+        ],
+        "ood_score": 0.18,
+        "prediction": {
+          "positive_class_probability": 0.91,
+          "predicted_label": 1
+        },
+        "sample_id": "healthcare-high-risk-001",
+        "trust_score": 0.31,
+        "uncertainty": 0.42
+      },
+      "drift_ood_summary": {
+        "combined_risk": 0.22,
+        "drift_score": 0.22,
+        "ood_score": 0.18,
+        "recommended_drift_action": "no_drift_action",
+        "severity": "low"
+      },
+      "failure_explanations": [
+        {
+          "description": "The model is highly confident while calibration or empirical reliability is weak.",
+          "failure_id": "F2_MODEL_OVERCONFIDENCE",
+          "name": "Model overconfidence",
+          "primary_repair": "R1_RECALIBRATE_MODEL",
+          "severity": "high"
+        },
+        {
+          "description": "Predicted probabilities do not align well with empirical outcome frequencies.",
+          "failure_id": "F7_CALIBRATION_FAILURE",
+          "name": "Calibration failure",
+          "primary_repair": "R1_RECALIBRATE_MODEL",
+          "severity": "high"
+        },
+        {
+          "description": "The case is too risky for automatic action under the current reliability envelope.",
+          "failure_id": "F10_UNSAFE_AUTO_DECISION",
+          "name": "Unsafe automatic decision",
+          "primary_repair": "R4_ROUTE_TO_HUMAN_REVIEW",
+          "severity": "critical"
+        }
+      ],
+      "human_review_note": "Sample healthcare-high-risk-001 should be handled with action R4_ROUTE_TO_HUMAN_REVIEW (Route to human review). Trust score: 0.31. Detected failure IDs: F2_MODEL_OVERCONFIDENCE, F7_CALIBRATION_FAILURE, F10_UNSAFE_AUTO_DECISION. Reason: Critical safety/OOD/low-trust condition blocks automatic decisioning.",
+      "limitations": [
+        "Default mode is deterministic and does not call external LLM APIs.",
+        "LangGraph/LangChain are optional integration targets, not required runtime dependencies.",
+        "Agent recommendations support reliability review and do not certify production safety."
+      ],
+      "optional_integrations": {
+        "langchain_available": false,
+        "langgraph_available": false
+      },
+      "project": "FailSafeML-X",
+      "recommended_action": {
+        "action_id": "R4_ROUTE_TO_HUMAN_REVIEW",
+        "auto_decision_allowed": false,
+        "decision": "human_review",
+        "label": "Route to human review",
+        "reason": "Critical safety/OOD/low-trust condition blocks automatic decisioning."
+      },
+      "trust_summary": {
+        "default_decision": "human_review",
+        "explanation": "Trust score is too low for automatic decisioning.",
+        "trust_band": "very_low",
+        "trust_score": 0.31
+      }
+    },
+    {
+      "agent_mode": "deterministic_local_fallback",
+      "agent_name": "failsafemlx_reliability_agent",
+      "case": {
+        "calibration_error": 0.08,
+        "domain": "energy_time_series_regression",
+        "drift_score": 0.72,
+        "failure_ids": [
+          "F1_DATA_DRIFT",
+          "F8_WIDE_PREDICTION_INTERVAL"
+        ],
+        "ood_score": 0.36,
+        "prediction": {
+          "forecast_value": 148.4,
+          "interval_width": 31.2
+        },
+        "sample_id": "energy-load-forecast-042",
+        "trust_score": 0.54,
+        "uncertainty": 0.67
+      },
+      "drift_ood_summary": {
+        "combined_risk": 0.72,
+        "drift_score": 0.72,
+        "ood_score": 0.36,
+        "recommended_drift_action": "flag_drift",
+        "severity": "high"
+      },
+      "failure_explanations": [
+        {
+          "description": "Current feature distribution differs from the reference/training distribution.",
+          "failure_id": "F1_DATA_DRIFT",
+          "name": "Data drift",
+          "primary_repair": "R8_FLAG_DATA_PIPELINE_DRIFT",
+          "severity": "high"
+        },
+        {
+          "description": "Conformal or uncertainty interval is too wide for confident automated action.",
+          "failure_id": "F8_WIDE_PREDICTION_INTERVAL",
+          "name": "Wide prediction interval",
+          "primary_repair": "R2_APPLY_CONFORMAL_PREDICTION",
+          "severity": "medium"
+        }
+      ],
+      "human_review_note": "Sample energy-load-forecast-042 should be handled with action R8_FLAG_DATA_PIPELINE_DRIFT (Flag data pipeline drift). Trust score: 0.54. Detected failure IDs: F1_DATA_DRIFT, F8_WIDE_PREDICTION_INTERVAL. Reason: Drift risk is high enough to flag the input/data pipeline before automation.",
+      "limitations": [
+        "Default mode is deterministic and does not call external LLM APIs.",
+        "LangGraph/LangChain are optional integration targets, not required runtime dependencies.",
+        "Agent recommendations support reliability review and do not certify production safety."
+      ],
+      "optional_integrations": {
+        "langchain_available": false,
+        "langgraph_available": false
+      },
+      "project": "FailSafeML-X",
+      "recommended_action": {
+        "action_id": "R8_FLAG_DATA_PIPELINE_DRIFT",
+        "auto_decision_allowed": false,
+        "decision": "flag_drift",
+        "label": "Flag data pipeline drift",
+        "reason": "Drift risk is high enough to flag the input/data pipeline before automation."
+      },
+      "trust_summary": {
+        "default_decision": "abstain",
+        "explanation": "Trust score is weak; automatic decisioning should be avoided.",
+        "trust_band": "low",
+        "trust_score": 0.54
+      }
+    },
+    {
+      "agent_mode": "deterministic_local_fallback",
+      "agent_name": "failsafemlx_reliability_agent",
+      "case": {
+        "calibration_error": 0.04,
+        "domain": "reference_monitoring_case",
+        "drift_score": 0.08,
+        "failure_ids": [],
+        "ood_score": 0.05,
+        "prediction": {
+          "positive_class_probability": 0.14,
+          "predicted_label": 0
+        },
+        "sample_id": "low-risk-reference-007",
+        "trust_score": 0.88,
+        "uncertainty": 0.12
+      },
+      "drift_ood_summary": {
+        "combined_risk": 0.08,
+        "drift_score": 0.08,
+        "ood_score": 0.05,
+        "recommended_drift_action": "no_drift_action",
+        "severity": "low"
+      },
+      "failure_explanations": [],
+      "human_review_note": "Sample low-risk-reference-007 should be handled with action ACCEPT_WITH_MONITORING (Accept with monitoring). Trust score: 0.88. Detected failure IDs: none. Reason: No high-severity reliability failures were detected.",
+      "limitations": [
+        "Default mode is deterministic and does not call external LLM APIs.",
+        "LangGraph/LangChain are optional integration targets, not required runtime dependencies.",
+        "Agent recommendations support reliability review and do not certify production safety."
+      ],
+      "optional_integrations": {
+        "langchain_available": false,
+        "langgraph_available": false
+      },
+      "project": "FailSafeML-X",
+      "recommended_action": {
+        "action_id": "ACCEPT_WITH_MONITORING",
+        "auto_decision_allowed": true,
+        "decision": "accept",
+        "label": "Accept with monitoring",
+        "reason": "No high-severity reliability failures were detected."
+      },
+      "trust_summary": {
+        "default_decision": "accept",
+        "explanation": "Trust score is high enough for low-risk automation if no critical failures are present.",
+        "trust_band": "high",
+        "trust_score": 0.88
+      }
+    }
+  ],
+  "created_at_utc": "2026-07-09T00:23:53.562596+00:00",
+  "errors": [],
+  "generated_outputs": [
+    "experiments/results/m10_agentic_reliability.json",
+    "reports/milestone_10_agentic_reliability.md"
+  ],
+  "honest_claim": "Optional LangGraph/LangChain-style reliability agent tooling is implemented with deterministic local fallback, structured failure explanation, repair recommendation, and human-review note generation.",
+  "milestone": "M10_AGENTIC_RELIABILITY_LAYER",
+  "optional_integrations": {
+    "langchain_available": false,
+    "langgraph_available": false
+  },
+  "passed": true,
+  "project": "FailSafeML-X",
+  "status": "completed",
+  "warnings": [
+    "External LLM APIs are intentionally not used.",
+    "LangGraph/LangChain are optional and are not required for the default tested path."
+  ]
+}
